@@ -9,21 +9,24 @@ HEADERS = {
 }
 
 def build_prompt(report: dict) -> str:
-    findings = report.get("filtered_findings", [])
+    issues = report.get("issues", [])
     by_sev = {"CRITICAL": 0, "HIGH": 1, "MEDIUM": 2, "LOW": 3}
-    findings = sorted(findings, key=lambda x: by_sev.get(x["severity"], 4))
+    issues = sorted(issues, key=lambda x: by_sev.get(x["severity"], 4))
 
+    risk = report.get("risk_assessment", {})
     lines = [
-        f"SkillSpector security scan: score {report.get('risk_score', 'N/A')}/100 "
-        f"({report.get('risk_severity', 'N/A')}) — {report.get('risk_recommendation', 'N/A')}.",
-        f"{len(findings)} issue(s) found. Fix each one. Do NOT refactor unrelated code.",
+        f"SkillSpector security scan: score {risk.get('score', 'N/A')}/100 "
+        f"({risk.get('severity', 'N/A')}) — {risk.get('recommendation', 'N/A')}.",
+        f"{len(issues)} issue(s) found. Fix each one. Do NOT refactor unrelated code.",
         "",
     ]
-    for f in findings:
+    for i in issues:
+        loc = i.get("location", {})
+        loc_str = f"{loc.get('file', 'unknown')}:{loc.get('start_line', '?')}"
         lines += [
-            f"[{f['severity']}] {f['rule_id']} — {f['message']}",
-            f"  Location: {f.get('location', 'unknown')}",
-            f"  {f.get('explanation', '')}",
+            f"[{i['severity']}] {i['id']} — {i.get('pattern') or i.get('category', 'Issue')}",
+            f"  Location: {loc_str}",
+            f"  {i.get('explanation', '')}",
             "",
         ]
     lines.append(
@@ -33,6 +36,7 @@ def build_prompt(report: dict) -> str:
     return "\n".join(lines)
 
 def trigger_jules(report_path):
+    print(f"Checking Jules integration for {report_path.name}...")
     try:
         with open(report_path) as f:
             report = json.load(f)
@@ -40,20 +44,22 @@ def trigger_jules(report_path):
         print(f"Error loading {report_path}: {e}")
         return
 
-    if not report.get("filtered_findings"):
-        print(f"Scan clean for {report_path} — no Jules task needed.")
+    issues = report.get("issues", [])
+    if not issues:
+        print(f"Scan clean for {report_path.name} — no Jules task needed.")
         return
 
     if not HEADERS["X-Goog-Api-Key"]:
-        print("JULES_API_KEY environment variable not set. Skipping Jules trigger.")
+        print("JULES_API_KEY environment variable not set. Cannot trigger Jules API sessions.")
         return
 
     try:
+        print(f"Attempting to trigger Jules session for {report_path.name}...")
         resp = requests.get(f"{JULES_API}/sources", headers=HEADERS)
         resp.raise_for_status()
         sources = resp.json()
     except Exception as e:
-        print(f"Error fetching sources: {e}")
+        print(f"Error fetching Jules sources: {e}")
         return
 
     if not sources.get("sources"):
@@ -65,10 +71,11 @@ def trigger_jules(report_path):
         (s["name"] for s in sources["sources"] if repo_slug in s["name"]),
         sources["sources"][0]["name"]
     )
-    print(f"Using source: {source_name} for {report_path}")
+    print(f"Using Jules source: {source_name}")
 
+    risk = report.get("risk_assessment", {})
     payload = {
-        "title": f"[SkillSpector] Fix {report['risk_severity']} issues (score {report['risk_score']}/100)",
+        "title": f"[SkillSpector] Fix {risk.get('severity', 'risk')} issues (score {risk.get('score', 'N/A')}/100)",
         "prompt": build_prompt(report),
         "sourceContext": {
             "source": source_name,
@@ -79,9 +86,9 @@ def trigger_jules(report_path):
     try:
         session = requests.post(f"{JULES_API}/sessions", headers=HEADERS, json=payload).json()
         session_id = session["id"]
-        print(f"Jules session started for {report_path}: {session_id}")
+        print(f"Jules session started: {session_id}")
     except Exception as e:
-        print(f"Error creating session: {e}")
+        print(f"Error creating Jules session: {e}")
         return
 
     for i in range(30):
@@ -91,7 +98,7 @@ def trigger_jules(report_path):
             for out in s.get("outputs", []):
                 if "pullRequest" in out:
                     pr = out["pullRequest"]
-                    print(f"✅ PR ready for {report_path}: {pr['url']}")
+                    print(f"✅ PR ready: {pr['url']}")
                     return
 
             activities = requests.get(
@@ -100,15 +107,17 @@ def trigger_jules(report_path):
             ).json().get("activities", [])
             if activities:
                 last = activities[-1].get("progressUpdated", {}).get("title", "…")
-                print(f"[{i+1}/30] {report_path} Jules: {last}")
+                print(f"[{i+1}/30] Jules status: {last}")
         except Exception as e:
-            print(f"Error polling session: {e}")
+            print(f"Error polling Jules session: {e}")
 
-    print(f"Timed out for {report_path} — check https://jules.google.com for status.")
+    print(f"Timed out waiting for Jules PR — check https://jules.google.com for status.")
 
 def scan_repo(repo_url):
     print(f"Cloning {repo_url}...")
-    temp_dir = Path("/tmp/scan_repo")
+    base_output = Path(__file__).parent / "output"
+    temp_dir = base_output / "temp_repo"
+
     if temp_dir.exists():
         subprocess.run(["rm", "-rf", str(temp_dir)])
 
@@ -119,16 +128,15 @@ def scan_repo(repo_url):
         print(f"No .agents/skills directory found in {repo_url}")
         return
 
-    reports_dir = Path("reports_llm")
-    reports_dir.mkdir(exist_ok=True)
+    reports_dir = base_output / "reports"
+    reports_dir.mkdir(parents=True, exist_ok=True)
 
     for skill_path in skills_dir.iterdir():
         if skill_path.is_dir():
             skill_name = skill_path.name
-            print(f"Scanning {skill_name} with LLM...")
+            print(f"--- Scanning {skill_name} (LLM Mode Enabled) ---")
             report_path = reports_dir / f"{skill_name}.json"
 
-            # Note: We try with LLM, but if it fails (like 403), we fall back to --no-llm
             result = subprocess.run([
                 "skillspector", "scan", str(skill_path),
                 "--format", "json",
@@ -136,15 +144,12 @@ def scan_repo(repo_url):
             ])
 
             if result.returncode != 0:
-                print(f"Scan failed for {skill_name}, trying with --no-llm...")
-                subprocess.run([
-                    "skillspector", "scan", str(skill_path),
-                    "--format", "json",
-                    "--output", str(report_path),
-                    "--no-llm"
-                ])
+                print(f"WARNING: LLM scan failed/exited with code {result.returncode} for {skill_name}.")
 
-            trigger_jules(report_path)
+            if report_path.exists():
+                trigger_jules(report_path)
+            else:
+                print(f"Error: No report generated for {skill_name}")
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:

@@ -1,0 +1,160 @@
+{
+  "skill": {
+    "name": "pre-commit",
+    "source": "/app/scripts/output/temp_repo/.agents/skills/pre-commit",
+    "scanned_at": "2026-06-15T17:42:57.891381+00:00"
+  },
+  "risk_assessment": {
+    "score": 71,
+    "severity": "HIGH",
+    "recommendation": "DO_NOT_INSTALL"
+  },
+  "components": [
+    {
+      "path": "SKILL.md",
+      "type": "markdown",
+      "lines": 237,
+      "executable": false,
+      "size_bytes": 6642
+    },
+    {
+      "path": "evals/evals.json",
+      "type": "json",
+      "lines": 19,
+      "executable": false,
+      "size_bytes": 516
+    },
+    {
+      "path": "examples/README.md",
+      "type": "markdown",
+      "lines": 59,
+      "executable": false,
+      "size_bytes": 1188
+    },
+    {
+      "path": "examples/javascript-project.yaml",
+      "type": "yaml",
+      "lines": 45,
+      "executable": false,
+      "size_bytes": 1210
+    },
+    {
+      "path": "examples/minimal.yaml",
+      "type": "yaml",
+      "lines": 16,
+      "executable": false,
+      "size_bytes": 431
+    },
+    {
+      "path": "examples/multi-language.yaml",
+      "type": "yaml",
+      "lines": 69,
+      "executable": false,
+      "size_bytes": 1680
+    },
+    {
+      "path": "examples/python-project.yaml",
+      "type": "yaml",
+      "lines": 66,
+      "executable": false,
+      "size_bytes": 1586
+    },
+    {
+      "path": "references/README.md",
+      "type": "markdown",
+      "lines": 28,
+      "executable": false,
+      "size_bytes": 898
+    },
+    {
+      "path": "scripts/init_precommit.py",
+      "type": "python",
+      "lines": 215,
+      "executable": true,
+      "size_bytes": 6385
+    },
+    {
+      "path": "scripts/test.py",
+      "type": "python",
+      "lines": 128,
+      "executable": true,
+      "size_bytes": 3406
+    }
+  ],
+  "issues": [
+    {
+      "id": "AST4",
+      "category": "Dangerous Code Execution",
+      "pattern": "subprocess module call",
+      "severity": "MEDIUM",
+      "confidence": 0.7,
+      "location": {
+        "file": "scripts/test.py",
+        "start_line": 20,
+        "end_line": 20
+      },
+      "finding": "        subprocess.run([\"git\", \"init\"], cwd=tmp_path, capture_output=True)",
+      "explanation": "subprocess module calls execute external commands. Without careful input validation, this enables command injection.",
+      "remediation": "Use subprocess.run() with shell=False and an explicit argument list. Validate all inputs and avoid passing user-controlled data to commands.",
+      "code_snippet": "        tmp_path = Path(tmpdir)\n\n        # Initialize git repo to avoid prompts\n        subprocess.run([\"git\", \"init\"], cwd=tmp_path, capture_output=True)\n\n        # Create a Python file to trigger detection\n        (tmp_path / \"test.py\").write_text(\"print('hello')\\n\")",
+      "intent": null
+    },
+    {
+      "id": "AST4",
+      "category": "Dangerous Code Execution",
+      "pattern": "subprocess module call",
+      "severity": "MEDIUM",
+      "confidence": 0.7,
+      "location": {
+        "file": "scripts/test.py",
+        "start_line": 27,
+        "end_line": 31
+      },
+      "finding": "        result = subprocess.run(\n            [sys.executable, str(script_path), \"--project-path\", str(tmp_path), \"--dry-run\"],\n            capture_output=True,\n            text=True,\n        )",
+      "explanation": "subprocess module calls execute external commands. Without careful input validation, this enables command injection.",
+      "remediation": "Use subprocess.run() with shell=False and an explicit argument list. Validate all inputs and avoid passing user-controlled data to commands.",
+      "code_snippet": "\n        # Run the init script in dry-run mode\n        script_path = Path(__file__).parent / \"init_precommit.py\"\n        result = subprocess.run(\n            [sys.executable, str(script_path), \"--project-path\", str(tmp_path), \"--dry-run\"],\n            capture_output=True,\n            text=True,",
+      "intent": null
+    },
+    {
+      "id": "LP3",
+      "category": "MCP Least Privilege",
+      "pattern": null,
+      "severity": "MEDIUM",
+      "confidence": 0.7,
+      "location": {
+        "file": "SKILL.md",
+        "start_line": 1,
+        "end_line": null
+      },
+      "finding": null,
+      "explanation": "Without declared permissions the skill's intent is opaque and cannot be validated.",
+      "remediation": "Add a 'permissions' field to SKILL.md listing the capabilities this skill requires.",
+      "code_snippet": null,
+      "intent": null
+    },
+    {
+      "id": "OH1",
+      "category": "Output Handling",
+      "pattern": "Unvalidated Output Injection",
+      "severity": "HIGH",
+      "confidence": 0.95,
+      "location": {
+        "file": "scripts/test.py",
+        "start_line": 20,
+        "end_line": null
+      },
+      "finding": "subprocess.run([\"git\", \"init\"], cwd=tmp_path, capture_output",
+      "explanation": "Model output is used without validation or sanitization. Unvalidated output injected into downstream contexts (SQL, shell, HTML) enables injection attacks and arbitrary code execution.",
+      "remediation": "Validate and sanitize all model output before using it in downstream contexts. Use parameterized queries for SQL, shell quoting for commands, and HTML encoding for web output.",
+      "code_snippet": "        tmp_path = Path(tmpdir)\n\n        # Initialize git repo to avoid prompts\n        subprocess.run([\"git\", \"init\"], cwd=tmp_path, capture_output=True)\n\n        # Create a Python file to trigger detection\n        (tmp_path / \"test.py\").write_text(\"print('hello')\\n\")",
+      "intent": null
+    }
+  ],
+  "metadata": {
+    "has_executable_scripts": true,
+    "skillspector_version": "2.1.4",
+    "llm_requested": true,
+    "llm_available": true
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "skill": {
+    "name": "nlq",
+    "source": "/app/scripts/output/temp_repo/.agents/skills/nlq",
+    "scanned_at": "2026-06-15T17:44:09.243814+00:00"
+  },
+  "risk_assessment": {
+    "score": 10,
+    "severity": "LOW",
+    "recommendation": "SAFE"
+  },
+  "components": [
+    {
+      "path": "SKILL.md",
+      "type": "markdown",
+      "lines": 156,
+      "executable": false,
+      "size_bytes": 4541
+    },
+    {
+      "path": "evals/evals.json",
+      "type": "json",
+      "lines": 129,
+      "executable": false,
+      "size_bytes": 4737
+    }
+  ],
+  "issues": [
+    {
+      "id": "E1",
+      "category": "Data Exfiltration",
+      "pattern": "External Transmission",
+      "severity": "MEDIUM",
+      "confidence": 0.6,
+      "location": {
+        "file": "SKILL.md",
+        "start_line": 27,
+        "end_line": null
+      },
+      "finding": "curl -X POST /api/nlq \\\n  -H \"Content-Type: application/json\" \\\n  -d ",
+      "explanation": "Data is being sent to an external URL. This could be legitimate telemetry or data exfiltration. Manual review is recommended.",
+      "remediation": "Verify the destination URL is trusted and necessary. Remove or replace with documented APIs. Ensure no secrets, tokens, or PII are transmitted.",
+      "code_snippet": "### HTTP API\n```bash\n# POST with JSON body\ncurl -X POST /api/nlq \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"query\": \"best crypto deals\", \"limit\": 10}'\n",
+      "intent": null
+    }
+  ],
+  "metadata": {
+    "has_executable_scripts": false,
+    "skillspector_version": "2.1.4",
+    "llm_requested": true,
+    "llm_available": true
+  }
+}

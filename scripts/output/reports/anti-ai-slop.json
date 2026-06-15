@@ -1,0 +1,122 @@
+{
+  "skill": {
+    "name": "anti-ai-slop",
+    "source": "/app/scripts/output/temp_repo/.agents/skills/anti-ai-slop",
+    "scanned_at": "2026-06-15T17:44:02.067904+00:00"
+  },
+  "risk_assessment": {
+    "score": 60,
+    "severity": "HIGH",
+    "recommendation": "DO_NOT_INSTALL"
+  },
+  "components": [
+    {
+      "path": "SKILL.md",
+      "type": "markdown",
+      "lines": 261,
+      "executable": false,
+      "size_bytes": 15703
+    },
+    {
+      "path": "evals/evals.json",
+      "type": "json",
+      "lines": 60,
+      "executable": false,
+      "size_bytes": 3323
+    },
+    {
+      "path": "references/copy-rewrites.md",
+      "type": "markdown",
+      "lines": 167,
+      "executable": false,
+      "size_bytes": 4286
+    },
+    {
+      "path": "references/examples.md",
+      "type": "markdown",
+      "lines": 269,
+      "executable": false,
+      "size_bytes": 4774
+    },
+    {
+      "path": "references/inspiration.md",
+      "type": "markdown",
+      "lines": 90,
+      "executable": false,
+      "size_bytes": 3957
+    },
+    {
+      "path": "references/ui-alternatives.md",
+      "type": "markdown",
+      "lines": 181,
+      "executable": false,
+      "size_bytes": 6169
+    },
+    {
+      "path": "references/ux-alternatives.md",
+      "type": "markdown",
+      "lines": 136,
+      "executable": false,
+      "size_bytes": 4290
+    }
+  ],
+  "issues": [
+    {
+      "id": "EA2",
+      "category": "Excessive Agency",
+      "pattern": "Autonomous Decision Making",
+      "severity": "MEDIUM",
+      "confidence": 0.75,
+      "location": {
+        "file": "references/ux-alternatives.md",
+        "start_line": 47,
+        "end_line": null
+      },
+      "finding": "No confirmation",
+      "explanation": "Skill enables autonomous high-impact decisions without human-in-the-loop verification. Critical operations (destructive commands, financial transactions, data deletion) should require explicit user confirmation.",
+      "remediation": "Add human-in-the-loop confirmation for destructive, irreversible, or high-impact operations. Never auto-execute commands that modify files, send data, or alter system state.",
+      "code_snippet": "Execute immediately. Show a toast with an undo action for 5\u201310 seconds. Way less friction, same safety.\n\n**Soft delete:**\nMove to trash. Let users recover for 30 days. No confirmation needed upfront.\n\n**Named confirmation:**\nIf confirmation IS needed (truly irreversible), require the user to type the item name. \"Type 'Production DB' to confirm deletion.\" More friction where it's warranted.",
+      "intent": null
+    },
+    {
+      "id": "PE3",
+      "category": "Privilege Escalation",
+      "pattern": "Credential Access",
+      "severity": "HIGH",
+      "confidence": 0.6,
+      "location": {
+        "file": "references/examples.md",
+        "start_line": 181,
+        "end_line": null
+      },
+      "finding": ".env\n",
+      "explanation": "Code accesses credential files (SSH keys, AWS credentials, etc.). This could indicate credential theft attempts.",
+      "remediation": "Remove references to credential paths. Use environment variables or secrets managers. For docs, use placeholder paths (e.g., /path/to/config). Never load .env or token files in production code paths.",
+      "code_snippet": "npm install\n\n# 2. Configure API keys (see .env.example)\ncp .env.example .env\n# Edit .env with your ProductHunt + GitHub tokens\n\n# 3. Run first deal scan",
+      "intent": null
+    },
+    {
+      "id": "PE3",
+      "category": "Privilege Escalation",
+      "pattern": "Credential Access",
+      "severity": "HIGH",
+      "confidence": 0.6,
+      "location": {
+        "file": "references/examples.md",
+        "start_line": 182,
+        "end_line": null
+      },
+      "finding": ".env ",
+      "explanation": "Code accesses credential files (SSH keys, AWS credentials, etc.). This could indicate credential theft attempts.",
+      "remediation": "Remove references to credential paths. Use environment variables or secrets managers. For docs, use placeholder paths (e.g., /path/to/config). Never load .env or token files in production code paths.",
+      "code_snippet": "\n# 2. Configure API keys (see .env.example)\ncp .env.example .env\n# Edit .env with your ProductHunt + GitHub tokens\n\n# 3. Run first deal scan\nnpm run research -- --sources producthunt --days 7",
+      "intent": null
+    }
+  ],
+  "metadata": {
+    "has_executable_scripts": false,
+    "skillspector_version": "2.1.4",
+    "llm_requested": true,
+    "llm_available": true
+  }
+}

@@ -1,0 +1,252 @@
+{
+  "skill": {
+    "name": "jules-usage",
+    "source": "/app/scripts/output/temp_repo/.agents/skills/jules-usage",
+    "scanned_at": "2026-06-15T17:40:34.620902+00:00"
+  },
+  "risk_assessment": {
+    "score": 100,
+    "severity": "CRITICAL",
+    "recommendation": "DO_NOT_INSTALL"
+  },
+  "components": [
+    {
+      "path": "SKILL.md",
+      "type": "markdown",
+      "lines": 139,
+      "executable": false,
+      "size_bytes": 8505
+    },
+    {
+      "path": "evals/evals.json",
+      "type": "json",
+      "lines": 206,
+      "executable": false,
+      "size_bytes": 9598
+    },
+    {
+      "path": "evals/results.json",
+      "type": "json",
+      "lines": 113,
+      "executable": false,
+      "size_bytes": 3201
+    },
+    {
+      "path": "evals/test_results.json",
+      "type": "json",
+      "lines": 238,
+      "executable": false,
+      "size_bytes": 6385
+    },
+    {
+      "path": "examples/check-setup.sh",
+      "type": "shell",
+      "lines": 45,
+      "executable": true,
+      "size_bytes": 1237
+    },
+    {
+      "path": "references/api-reference.md",
+      "type": "markdown",
+      "lines": 295,
+      "executable": false,
+      "size_bytes": 7577
+    },
+    {
+      "path": "references/commands.md",
+      "type": "markdown",
+      "lines": 100,
+      "executable": false,
+      "size_bytes": 4815
+    },
+    {
+      "path": "scripts/generate_evals.py",
+      "type": "python",
+      "lines": 499,
+      "executable": true,
+      "size_bytes": 20851
+    },
+    {
+      "path": "scripts/jules_api_request.sh",
+      "type": "shell",
+      "lines": 25,
+      "executable": true,
+      "size_bytes": 669
+    },
+    {
+      "path": "scripts/jules_start_session.sh",
+      "type": "shell",
+      "lines": 42,
+      "executable": true,
+      "size_bytes": 1208
+    },
+    {
+      "path": "scripts/test.py",
+      "type": "python",
+      "lines": 554,
+      "executable": true,
+      "size_bytes": 20753
+    }
+  ],
+  "issues": [
+    {
+      "id": "AST4",
+      "category": "Dangerous Code Execution",
+      "pattern": "subprocess module call",
+      "severity": "MEDIUM",
+      "confidence": 0.7,
+      "location": {
+        "file": "scripts/generate_evals.py",
+        "start_line": 250,
+        "end_line": 255
+      },
+      "finding": "            result = subprocess.run(\n                [\"bash\", \"-n\", str(script_path)],\n                capture_output=True,\n                text=True,\n                timeout=10,\n            )",
+      "explanation": "subprocess module calls execute external commands. Without careful input validation, this enables command injection.",
+      "remediation": "Use subprocess.run() with shell=False and an explicit argument list. Validate all inputs and avoid passing user-controlled data to commands.",
+      "code_snippet": "    \"\"\"Check if a shell script has valid bash syntax.\"\"\"\n    if script_path.suffix == \".sh\":\n        try:\n            result = subprocess.run(\n                [\"bash\", \"-n\", str(script_path)],\n                capture_output=True,\n                text=True,",
+      "intent": null
+    },
+    {
+      "id": "AST4",
+      "category": "Dangerous Code Execution",
+      "pattern": "subprocess module call",
+      "severity": "MEDIUM",
+      "confidence": 0.7,
+      "location": {
+        "file": "scripts/test.py",
+        "start_line": 307,
+        "end_line": 312
+      },
+      "finding": "            gen_result = subprocess.run(\n                [sys.executable, str(gen_script)],\n                capture_output=True,\n                text=True,\n                timeout=30\n            )",
+      "explanation": "subprocess module calls execute external commands. Without careful input validation, this enables command injection.",
+      "remediation": "Use subprocess.run() with shell=False and an explicit argument list. Validate all inputs and avoid passing user-controlled data to commands.",
+      "code_snippet": "    if exists:\n        # Run the generator\n        try:\n            gen_result = subprocess.run(\n                [sys.executable, str(gen_script)],\n                capture_output=True,\n                text=True,",
+      "intent": null
+    },
+    {
+      "id": "AST4",
+      "category": "Dangerous Code Execution",
+      "pattern": "subprocess module call",
+      "severity": "MEDIUM",
+      "confidence": 0.7,
+      "location": {
+        "file": "scripts/test.py",
+        "start_line": 272,
+        "end_line": 277
+      },
+      "finding": "                result = subprocess.run(\n                    [\"bash\", \"-n\", str(script_path)],\n                    capture_output=True,\n                    text=True,\n                    timeout=10\n  ",
+      "explanation": "subprocess module calls execute external commands. Without careful input validation, this enables command injection.",
+      "remediation": "Use subprocess.run() with shell=False and an explicit argument list. Validate all inputs and avoid passing user-controlled data to commands.",
+      "code_snippet": "        if script_path.exists():\n            try:\n                # Check bash syntax using bash -n\n                result = subprocess.run(\n                    [\"bash\", \"-n\", str(script_path)],\n                    capture_output=True,\n                    text=True,",
+      "intent": null
+    },
+    {
+      "id": "AST3",
+      "category": "Dangerous Code Execution",
+      "pattern": "Dynamic import via __import__()",
+      "severity": "MEDIUM",
+      "confidence": 0.75,
+      "location": {
+        "file": "scripts/test.py",
+        "start_line": 484,
+        "end_line": 484
+      },
+      "finding": "    timestamp = __import__(\"datetime\").datetime.now().isoformat()",
+      "explanation": "Dynamic __import__() can load arbitrary modules at runtime, bypassing static analysis and potentially importing malicious code.",
+      "remediation": "Use standard import statements instead of __import__(). If dynamic loading is needed, use importlib with an allowlist of permitted modules.",
+      "code_snippet": "    print(\"=\" * 70)\n\n    # Build result data\n    timestamp = __import__(\"datetime\").datetime.now().isoformat()\n    result_data = {\n        \"timestamp\": timestamp,\n        \"total\": total_passed + total_failed,",
+      "intent": null
+    },
+    {
+      "id": "LP3",
+      "category": "MCP Least Privilege",
+      "pattern": null,
+      "severity": "MEDIUM",
+      "confidence": 0.7,
+      "location": {
+        "file": "SKILL.md",
+        "start_line": 1,
+        "end_line": null
+      },
+      "finding": null,
+      "explanation": "Without declared permissions the skill's intent is opaque and cannot be validated.",
+      "remediation": "Add a 'permissions' field to SKILL.md listing the capabilities this skill requires.",
+      "code_snippet": null,
+      "intent": null
+    },
+    {
+      "id": "E1",
+      "category": "Data Exfiltration",
+      "pattern": "External Transmission",
+      "severity": "MEDIUM",
+      "confidence": 0.6,
+      "location": {
+        "file": "references/commands.md",
+        "start_line": 34,
+        "end_line": null
+      },
+      "finding": "curl -X POST -d ",
+      "explanation": "Data is being sent to an external URL. This could be legitimate telemetry or data exfiltration. Manual review is recommended.",
+      "remediation": "Verify the destination URL is trusted and necessary. Remove or replace with documented APIs. Ensure no secrets, tokens, or PII are transmitted.",
+      "code_snippet": "| `GET /sessions` | List sessions | `curl -H \"x-goog-api-key: $JULES_API_KEY\" https://jules.googleapis.com/v1alpha/sessions` |\n| `GET /sessions/{id}` | Get session details | `curl ... https://jules.googleapis.com/v1alpha/sessions/{id}` |\n| `DELETE /sessions/{id}` | Delete a session | `curl -X DELETE ... https://jules.googleapis.com/v1alpha/sessions/{id}` |\n| `POST /sessions` | Create session | `curl -X POST -d '{\"source\":\"sources/github/owner/repo\"}' ...` |\n\nResponse: `{\"sessions\": [{...}], \"nextPageToken\": \"...\"}`\nSession fields: `name`, `id`, `state` (IN_PROGRESS/COMPLETED/FAILED), `title`, `prompt`, `sourceContext`, `url`, `createTime`, `updateTime`, `outputs`",
+      "intent": null
+    },
+    {
+      "id": "E1",
+      "category": "Data Exfiltration",
+      "pattern": "External Transmission",
+      "severity": "MEDIUM",
+      "confidence": 0.7,
+      "location": {
+        "file": "scripts/jules_api_request.sh",
+        "start_line": 21,
+        "end_line": null
+      },
+      "finding": "curl -sS \\\n  -H \"x-goog-api-key: $JULES_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  ${payload:+-d ",
+      "explanation": "Data is being sent to an external URL. This could be legitimate telemetry or data exfiltration. Manual review is recommended.",
+      "remediation": "Verify the destination URL is trusted and necessary. Remove or replace with documented APIs. Ensure no secrets, tokens, or PII are transmitted.",
+      "code_snippet": "payload=\"$2\"\nshift 2\n\ncurl -sS \\\n  -H \"x-goog-api-key: $JULES_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  ${payload:+-d \"$payload\"} \\",
+      "intent": null
+    },
+    {
+      "id": "EA2",
+      "category": "Excessive Agency",
+      "pattern": "Autonomous Decision Making",
+      "severity": "MEDIUM",
+      "confidence": 0.75,
+      "location": {
+        "file": "scripts/generate_evals.py",
+        "start_line": 144,
+        "end_line": null
+      },
+      "finding": "without verification",
+      "explanation": "Skill enables autonomous high-impact decisions without human-in-the-loop verification. Critical operations (destructive commands, financial transactions, data deletion) should require explicit user confirmation.",
+      "remediation": "Add human-in-the-loop confirmation for destructive, irreversible, or high-impact operations. Never auto-execute commands that modify files, send data, or alter system state.",
+      "code_snippet": "            \"assertions\": [\n                \"Attempts npm install -g @jules/cli\",\n                \"Checks for npm/corepack availability before attempting install\",\n                \"Does not proceed without verification\",\n                \"Reports exact install failure output if it fails\",\n                \"Provides REST API fallback option when CLI unavailable\",\n            ],",
+      "intent": null
+    },
+    {
+      "id": "TM1",
+      "category": "Tool Misuse",
+      "pattern": "Tool Parameter Abuse",
+      "severity": "HIGH",
+      "confidence": 0.8,
+      "location": {
+        "file": "references/commands.md",
+        "start_line": 33,
+        "end_line": null
+      },
+      "finding": "DELETE /sessions/{id}`",
+      "explanation": "Tool parameters are crafted to achieve unintended or unsafe behavior. Parameter abuse can bypass intended safety checks (e.g. shell=True, --force, dangerous glob patterns).",
+      "remediation": "Validate all tool parameters against an allowlist. Reject dangerous parameter values (shell=True, --force, -rf /) and use safe defaults.",
+      "code_snippet": "|----------|-------------|---------|\n| `GET /sessions` | List sessions | `curl -H \"x-goog-api-key: $JULES_API_KEY\" https://jules.googleapis.com/v1alpha/sessions` |\n| `GET /sessions/{id}` | Get session details | `curl ... https://jules.googleapis.com/v1alpha/sessions/{id}` |\n| `DELETE /sessions/{id}` | Delete a session | `curl -X DELETE ... https://jules.googleapis.com/v1alpha/sessions/{id}` |\n| `POST /sessions` | Create session | `curl -X POST -d '{\"source\":\"sources/github/owner/repo\"}' ...` |\n\nResponse: `{\"sessions\": [{...}], \"nextPageToken\": \"...\"}`",
+      "intent": null
+    }
+  ],
+  "metadata": {
+    "has_executable_scripts": true,
+    "skillspector_version": "2.1.4",
+    "llm_requested": true,
+    "llm_available": true
+  }
+}

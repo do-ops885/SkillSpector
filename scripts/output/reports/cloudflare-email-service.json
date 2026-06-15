@@ -1,0 +1,353 @@
+{
+  "skill": {
+    "name": "cloudflare-email-service",
+    "source": "/app/scripts/output/temp_repo/.agents/skills/cloudflare-email-service",
+    "scanned_at": "2026-06-15T17:42:25.527995+00:00"
+  },
+  "risk_assessment": {
+    "score": 100,
+    "severity": "CRITICAL",
+    "recommendation": "DO_NOT_INSTALL"
+  },
+  "components": [
+    {
+      "path": "SKILL.md",
+      "type": "markdown",
+      "lines": 123,
+      "executable": false,
+      "size_bytes": 9924
+    },
+    {
+      "path": "references/cli-and-mcp.md",
+      "type": "markdown",
+      "lines": 125,
+      "executable": false,
+      "size_bytes": 4039
+    },
+    {
+      "path": "references/deliverability.md",
+      "type": "markdown",
+      "lines": 285,
+      "executable": false,
+      "size_bytes": 9145
+    },
+    {
+      "path": "references/rest-api.md",
+      "type": "markdown",
+      "lines": 184,
+      "executable": false,
+      "size_bytes": 6014
+    },
+    {
+      "path": "references/routing.md",
+      "type": "markdown",
+      "lines": 199,
+      "executable": false,
+      "size_bytes": 7462
+    },
+    {
+      "path": "references/sending.md",
+      "type": "markdown",
+      "lines": 252,
+      "executable": false,
+      "size_bytes": 9530
+    }
+  ],
+  "issues": [
+    {
+      "id": "E1",
+      "category": "Data Exfiltration",
+      "pattern": "External Transmission",
+      "severity": "MEDIUM",
+      "confidence": 0.5,
+      "location": {
+        "file": "SKILL.md",
+        "start_line": 72,
+        "end_line": null
+      },
+      "finding": "https://api.cloudflare.com/",
+      "explanation": "Data is being sent to an external URL. This could be legitimate telemetry or data exfiltration. Manual review is recommended.",
+      "remediation": "Verify the destination URL is trusted and necessary. Remove or replace with documented APIs. Ensure no secrets, tokens, or PII are transmitted.",
+      "code_snippet": "\nFor apps outside Workers, or within Workers if the user explicitly requests it. Key differences from the Workers binding:\n\n- Endpoint: `POST https://api.cloudflare.com/client/v4/accounts/{account_id}/email/sending/send`\n- `from` object uses `address` (not `email`): `{ \"address\": \"...\", \"name\": \"...\" }`\n- `replyTo` is `reply_to` (snake_case)\n- Response returns `{ delivered: [], permanent_bounces: [], queued: [] }` (not `messageId`)",
+      "intent": null
+    },
+    {
+      "id": "E1",
+      "category": "Data Exfiltration",
+      "pattern": "External Transmission",
+      "severity": "MEDIUM",
+      "confidence": 0.6,
+      "location": {
+        "file": "references/cli-and-mcp.md",
+        "start_line": 116,
+        "end_line": null
+      },
+      "finding": "curl \"https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/email/sending/send\" \\\n  --header \"Authorization: Bearer ${CLOUDFLARE_API_TOKEN}\" \\\n  --header \"Content-Type: application/js",
+      "explanation": "Data is being sent to an external URL. This could be legitimate telemetry or data exfiltration. Manual review is recommended.",
+      "remediation": "Verify the destination URL is trusted and necessary. Remove or replace with documented APIs. Ensure no secrets, tokens, or PII are transmitted.",
+      "code_snippet": "Or via REST API:\n\n```bash\ncurl \"https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/email/sending/send\" \\\n  --header \"Authorization: Bearer ${CLOUDFLARE_API_TOKEN}\" \\\n  --header \"Content-Type: application/json\" \\\n  --data '{",
+      "intent": null
+    },
+    {
+      "id": "E1",
+      "category": "Data Exfiltration",
+      "pattern": "External Transmission",
+      "severity": "MEDIUM",
+      "confidence": 0.5,
+      "location": {
+        "file": "references/cli-and-mcp.md",
+        "start_line": 116,
+        "end_line": null
+      },
+      "finding": "https://api.cloudflare.com/",
+      "explanation": "Data is being sent to an external URL. This could be legitimate telemetry or data exfiltration. Manual review is recommended.",
+      "remediation": "Verify the destination URL is trusted and necessary. Remove or replace with documented APIs. Ensure no secrets, tokens, or PII are transmitted.",
+      "code_snippet": "Or via REST API:\n\n```bash\ncurl \"https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/email/sending/send\" \\\n  --header \"Authorization: Bearer ${CLOUDFLARE_API_TOKEN}\" \\\n  --header \"Content-Type: application/json\" \\\n  --data '{",
+      "intent": null
+    },
+    {
+      "id": "E1",
+      "category": "Data Exfiltration",
+      "pattern": "External Transmission",
+      "severity": "MEDIUM",
+      "confidence": 0.6,
+      "location": {
+        "file": "references/deliverability.md",
+        "start_line": 128,
+        "end_line": null
+      },
+      "finding": "curl -X POST \"https://api.cloudflare.com/client/v4/accounts/{account_id}/email/sending/suppression\" \\\n  --header \"Authorization: Bearer <API_TOKEN>\" \\\n  --header \"Content-Type: application/json\" \\\n  -",
+      "explanation": "Data is being sent to an external URL. This could be legitimate telemetry or data exfiltration. Manual review is recommended.",
+      "remediation": "Verify the destination URL is trusted and necessary. Remove or replace with documented APIs. Ensure no secrets, tokens, or PII are transmitted.",
+      "code_snippet": "**Manually suppress an address:**\n\n```bash\ncurl -X POST \"https://api.cloudflare.com/client/v4/accounts/{account_id}/email/sending/suppression\" \\\n  --header \"Authorization: Bearer <API_TOKEN>\" \\\n  --header \"Content-Type: application/json\" \\\n  --data '{ \"email\": \"user@example.com\", \"expires_at\": \"2026-06-01T00:00:00Z\" }'",
+      "intent": null
+    },
+    {
+      "id": "E1",
+      "category": "Data Exfiltration",
+      "pattern": "External Transmission",
+      "severity": "MEDIUM",
+      "confidence": 0.6,
+      "location": {
+        "file": "references/deliverability.md",
+        "start_line": 263,
+        "end_line": null
+      },
+      "finding": "curl example:**\n\n```bash\ncurl \"https://api.cloudflare.com/client/v4/graphql\" \\\n  --header \"Authorization: Bearer <API_TOKEN>\" \\\n  --header \"Content-Type: application/json\" \\\n  --data ",
+      "explanation": "Data is being sent to an external URL. This could be legitimate telemetry or data exfiltration. Manual review is recommended.",
+      "remediation": "Verify the destination URL is trusted and necessary. Remove or replace with documented APIs. Ensure no secrets, tokens, or PII are transmitted.",
+      "code_snippet": "\nNote: `emailSendingAdaptive` filters use `datetime_geq`/`datetime_leq` (Time type, e.g. `\"2026-04-01T00:00:00Z\"`), while `emailSendingAdaptiveGroups` uses `date_geq`/`date_leq` (Date type, e.g. `\"2026-04-01\"`).\n\n**curl example:**\n\n```bash\ncurl \"https://api.cloudflare.com/client/v4/graphql\" \\",
+      "intent": null
+    },
+    {
+      "id": "E1",
+      "category": "Data Exfiltration",
+      "pattern": "External Transmission",
+      "severity": "MEDIUM",
+      "confidence": 0.5,
+      "location": {
+        "file": "references/deliverability.md",
+        "start_line": 79,
+        "end_line": null
+      },
+      "finding": "https://api.cloudflare.com/",
+      "explanation": "Data is being sent to an external URL. This could be legitimate telemetry or data exfiltration. Manual review is recommended.",
+      "remediation": "Verify the destination URL is trusted and necessary. Remove or replace with documented APIs. Ensure no secrets, tokens, or PII are transmitted.",
+      "code_snippet": "Check your account's daily sending quota:\n\n```bash\ncurl \"https://api.cloudflare.com/client/v4/accounts/{account_id}/email/sending/limits\" \\\n  --header \"Authorization: Bearer <API_TOKEN>\"\n```\n",
+      "intent": null
+    },
+    {
+      "id": "E1",
+      "category": "Data Exfiltration",
+      "pattern": "External Transmission",
+      "severity": "MEDIUM",
+      "confidence": 0.5,
+      "location": {
+        "file": "references/deliverability.md",
+        "start_line": 100,
+        "end_line": null
+      },
+      "finding": "https://api.cloudflare.com/",
+      "explanation": "Data is being sent to an external URL. This could be legitimate telemetry or data exfiltration. Manual review is recommended.",
+      "remediation": "Verify the destination URL is trusted and necessary. Remove or replace with documented APIs. Ensure no secrets, tokens, or PII are transmitted.",
+      "code_snippet": "**List suppressions (account-wide):**\n\n```bash\ncurl \"https://api.cloudflare.com/client/v4/accounts/{account_id}/email/sending/suppression?page=1&per_page=100&order=created_at&direction=desc\" \\\n  --header \"Authorization: Bearer <API_TOKEN>\"\n```\n",
+      "intent": null
+    },
+    {
+      "id": "E1",
+      "category": "Data Exfiltration",
+      "pattern": "External Transmission",
+      "severity": "MEDIUM",
+      "confidence": 0.5,
+      "location": {
+        "file": "references/deliverability.md",
+        "start_line": 128,
+        "end_line": null
+      },
+      "finding": "https://api.cloudflare.com/",
+      "explanation": "Data is being sent to an external URL. This could be legitimate telemetry or data exfiltration. Manual review is recommended.",
+      "remediation": "Verify the destination URL is trusted and necessary. Remove or replace with documented APIs. Ensure no secrets, tokens, or PII are transmitted.",
+      "code_snippet": "**Manually suppress an address:**\n\n```bash\ncurl -X POST \"https://api.cloudflare.com/client/v4/accounts/{account_id}/email/sending/suppression\" \\\n  --header \"Authorization: Bearer <API_TOKEN>\" \\\n  --header \"Content-Type: application/json\" \\\n  --data '{ \"email\": \"user@example.com\", \"expires_at\": \"2026-06-01T00:00:00Z\" }'",
+      "intent": null
+    },
+    {
+      "id": "E1",
+      "category": "Data Exfiltration",
+      "pattern": "External Transmission",
+      "severity": "MEDIUM",
+      "confidence": 0.5,
+      "location": {
+        "file": "references/deliverability.md",
+        "start_line": 139,
+        "end_line": null
+      },
+      "finding": "https://api.cloudflare.com/",
+      "explanation": "Data is being sent to an external URL. This could be legitimate telemetry or data exfiltration. Manual review is recommended.",
+      "remediation": "Verify the destination URL is trusted and necessary. Remove or replace with documented APIs. Ensure no secrets, tokens, or PII are transmitted.",
+      "code_snippet": "**Remove a suppression:**\n\n```bash\ncurl -X DELETE \"https://api.cloudflare.com/client/v4/accounts/{account_id}/email/sending/suppression/{suppression_id}\" \\\n  --header \"Authorization: Bearer <API_TOKEN>\"\n```\n",
+      "intent": null
+    },
+    {
+      "id": "E1",
+      "category": "Data Exfiltration",
+      "pattern": "External Transmission",
+      "severity": "MEDIUM",
+      "confidence": 0.5,
+      "location": {
+        "file": "references/deliverability.md",
+        "start_line": 266,
+        "end_line": null
+      },
+      "finding": "https://api.cloudflare.com/",
+      "explanation": "Data is being sent to an external URL. This could be legitimate telemetry or data exfiltration. Manual review is recommended.",
+      "remediation": "Verify the destination URL is trusted and necessary. Remove or replace with documented APIs. Ensure no secrets, tokens, or PII are transmitted.",
+      "code_snippet": "**curl example:**\n\n```bash\ncurl \"https://api.cloudflare.com/client/v4/graphql\" \\\n  --header \"Authorization: Bearer <API_TOKEN>\" \\\n  --header \"Content-Type: application/json\" \\\n  --data '{",
+      "intent": null
+    },
+    {
+      "id": "E1",
+      "category": "Data Exfiltration",
+      "pattern": "External Transmission",
+      "severity": "MEDIUM",
+      "confidence": 0.6,
+      "location": {
+        "file": "references/rest-api.md",
+        "start_line": 47,
+        "end_line": null
+      },
+      "finding": "curl \"https://api.cloudflare.com/client/v4/accounts/{account_id}/email/sending/send\" \\\n  --header \"Authorization: Bearer <API_TOKEN>\" \\\n  --header \"Content-Type: application/json\" \\\n  --data '{\n    \"t",
+      "explanation": "Data is being sent to an external URL. This could be legitimate telemetry or data exfiltration. Manual review is recommended.",
+      "remediation": "Verify the destination URL is trusted and necessary. Remove or replace with documented APIs. Ensure no secrets, tokens, or PII are transmitted.",
+      "code_snippet": "Simple send:\n\n```bash\ncurl \"https://api.cloudflare.com/client/v4/accounts/{account_id}/email/sending/send\" \\\n  --header \"Authorization: Bearer <API_TOKEN>\" \\\n  --header \"Content-Type: application/json\" \\\n  --data '{",
+      "intent": null
+    },
+    {
+      "id": "E1",
+      "category": "Data Exfiltration",
+      "pattern": "External Transmission",
+      "severity": "MEDIUM",
+      "confidence": 0.5,
+      "location": {
+        "file": "references/rest-api.md",
+        "start_line": 10,
+        "end_line": null
+      },
+      "finding": "https://api.cloudflare.com/",
+      "explanation": "Data is being sent to an external URL. This could be legitimate telemetry or data exfiltration. Manual review is recommended.",
+      "remediation": "Verify the destination URL is trusted and necessary. Remove or replace with documented APIs. Ensure no secrets, tokens, or PII are transmitted.",
+      "code_snippet": "## Endpoint\n\n```\nPOST https://api.cloudflare.com/client/v4/accounts/{account_id}/email/sending/send\n```\n\n## Authentication",
+      "intent": null
+    },
+    {
+      "id": "E1",
+      "category": "Data Exfiltration",
+      "pattern": "External Transmission",
+      "severity": "MEDIUM",
+      "confidence": 0.5,
+      "location": {
+        "file": "references/rest-api.md",
+        "start_line": 47,
+        "end_line": null
+      },
+      "finding": "https://api.cloudflare.com/",
+      "explanation": "Data is being sent to an external URL. This could be legitimate telemetry or data exfiltration. Manual review is recommended.",
+      "remediation": "Verify the destination URL is trusted and necessary. Remove or replace with documented APIs. Ensure no secrets, tokens, or PII are transmitted.",
+      "code_snippet": "Simple send:\n\n```bash\ncurl \"https://api.cloudflare.com/client/v4/accounts/{account_id}/email/sending/send\" \\\n  --header \"Authorization: Bearer <API_TOKEN>\" \\\n  --header \"Content-Type: application/json\" \\\n  --data '{",
+      "intent": null
+    },
+    {
+      "id": "E1",
+      "category": "Data Exfiltration",
+      "pattern": "External Transmission",
+      "severity": "MEDIUM",
+      "confidence": 0.5,
+      "location": {
+        "file": "references/rest-api.md",
+        "start_line": 62,
+        "end_line": null
+      },
+      "finding": "https://api.cloudflare.com/",
+      "explanation": "Data is being sent to an external URL. This could be legitimate telemetry or data exfiltration. Manual review is recommended.",
+      "remediation": "Verify the destination URL is trusted and necessary. Remove or replace with documented APIs. Ensure no secrets, tokens, or PII are transmitted.",
+      "code_snippet": "Multiple recipients with CC/BCC:\n\n```bash\ncurl \"https://api.cloudflare.com/client/v4/accounts/{account_id}/email/sending/send\" \\\n  --header \"Authorization: Bearer <API_TOKEN>\" \\\n  --header \"Content-Type: application/json\" \\\n  --data '{",
+      "intent": null
+    },
+    {
+      "id": "E1",
+      "category": "Data Exfiltration",
+      "pattern": "External Transmission",
+      "severity": "MEDIUM",
+      "confidence": 0.5,
+      "location": {
+        "file": "references/rest-api.md",
+        "start_line": 80,
+        "end_line": null
+      },
+      "finding": "https://api.cloudflare.com/",
+      "explanation": "Data is being sent to an external URL. This could be legitimate telemetry or data exfiltration. Manual review is recommended.",
+      "remediation": "Verify the destination URL is trusted and necessary. Remove or replace with documented APIs. Ensure no secrets, tokens, or PII are transmitted.",
+      "code_snippet": "With attachments:\n\n```bash\ncurl \"https://api.cloudflare.com/client/v4/accounts/{account_id}/email/sending/send\" \\\n  --header \"Authorization: Bearer <API_TOKEN>\" \\\n  --header \"Content-Type: application/json\" \\\n  --data '{",
+      "intent": null
+    },
+    {
+      "id": "E1",
+      "category": "Data Exfiltration",
+      "pattern": "External Transmission",
+      "severity": "MEDIUM",
+      "confidence": 0.5,
+      "location": {
+        "file": "references/rest-api.md",
+        "start_line": 102,
+        "end_line": null
+      },
+      "finding": "https://api.cloudflare.com/",
+      "explanation": "Data is being sent to an external URL. This could be legitimate telemetry or data exfiltration. Manual review is recommended.",
+      "remediation": "Verify the destination URL is trusted and necessary. Remove or replace with documented APIs. Ensure no secrets, tokens, or PII are transmitted.",
+      "code_snippet": "With inline images (embedded via `cid:` URI):\n\n```bash\ncurl \"https://api.cloudflare.com/client/v4/accounts/{account_id}/email/sending/send\" \\\n  --header \"Authorization: Bearer <API_TOKEN>\" \\\n  --header \"Content-Type: application/json\" \\\n  --data '{",
+      "intent": null
+    },
+    {
+      "id": "E1",
+      "category": "Data Exfiltration",
+      "pattern": "External Transmission",
+      "severity": "MEDIUM",
+      "confidence": 0.5,
+      "location": {
+        "file": "references/rest-api.md",
+        "start_line": 129,
+        "end_line": null
+      },
+      "finding": "https://api.cloudflare.com/",
+      "explanation": "Data is being sent to an external URL. This could be legitimate telemetry or data exfiltration. Manual review is recommended.",
+      "remediation": "Verify the destination URL is trusted and necessary. Remove or replace with documented APIs. Ensure no secrets, tokens, or PII are transmitted.",
+      "code_snippet": "With custom headers:\n\n```bash\ncurl \"https://api.cloudflare.com/client/v4/accounts/{account_id}/email/sending/send\" \\\n  --header \"Authorization: Bearer <API_TOKEN>\" \\\n  --header \"Content-Type: application/json\" \\\n  --data '{",
+      "intent": null
+    }
+  ],
+  "metadata": {
+    "has_executable_scripts": false,
+    "skillspector_version": "2.1.4",
+    "llm_requested": true,
+    "llm_available": true
+  }
+}

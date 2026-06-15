@@ -1,0 +1,42 @@
+{
+  "skill": {
+    "name": "distributed-locking",
+    "source": "/app/scripts/output/temp_repo/.agents/skills/distributed-locking",
+    "scanned_at": "2026-06-15T17:42:40.229877+00:00"
+  },
+  "risk_assessment": {
+    "score": 0,
+    "severity": "LOW",
+    "recommendation": "SAFE"
+  },
+  "components": [
+    {
+      "path": "SKILL.md",
+      "type": "markdown",
+      "lines": 151,
+      "executable": false,
+      "size_bytes": 4084
+    },
+    {
+      "path": "evals/evals.json",
+      "type": "json",
+      "lines": 72,
+      "executable": false,
+      "size_bytes": 2878
+    },
+    {
+      "path": "templates/lock.ts",
+      "type": "typescript",
+      "lines": 195,
+      "executable": true,
+      "size_bytes": 4773
+    }
+  ],
+  "issues": [],
+  "metadata": {
+    "has_executable_scripts": true,
+    "skillspector_version": "2.1.4",
+    "llm_requested": true,
+    "llm_available": true
+  }
+}

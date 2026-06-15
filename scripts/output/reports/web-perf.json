@@ -1,0 +1,28 @@
+{
+  "skill": {
+    "name": "web-perf",
+    "source": "/app/scripts/output/temp_repo/.agents/skills/web-perf",
+    "scanned_at": "2026-06-15T17:43:53.646686+00:00"
+  },
+  "risk_assessment": {
+    "score": 0,
+    "severity": "LOW",
+    "recommendation": "SAFE"
+  },
+  "components": [
+    {
+      "path": "SKILL.md",
+      "type": "markdown",
+      "lines": 219,
+      "executable": false,
+      "size_bytes": 9812
+    }
+  ],
+  "issues": [],
+  "metadata": {
+    "has_executable_scripts": false,
+    "skillspector_version": "2.1.4",
+    "llm_requested": true,
+    "llm_available": true
+  }
+}

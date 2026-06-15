@@ -1,0 +1,46 @@
+{
+  "skill": {
+    "name": "typescript-coding-standards",
+    "source": "/app/scripts/output/temp_repo/.agents/skills/typescript-coding-standards",
+    "scanned_at": "2026-06-15T17:43:01.359237+00:00"
+  },
+  "risk_assessment": {
+    "score": 10,
+    "severity": "LOW",
+    "recommendation": "SAFE"
+  },
+  "components": [
+    {
+      "path": "SKILL.md",
+      "type": "markdown",
+      "lines": 56,
+      "executable": false,
+      "size_bytes": 2704
+    }
+  ],
+  "issues": [
+    {
+      "id": "EA2",
+      "category": "Excessive Agency",
+      "pattern": "Autonomous Decision Making",
+      "severity": "MEDIUM",
+      "confidence": 0.75,
+      "location": {
+        "file": "SKILL.md",
+        "start_line": 54,
+        "end_line": null
+      },
+      "finding": "without checking",
+      "explanation": "Skill enables autonomous high-impact decisions without human-in-the-loop verification. Critical operations (destructive commands, financial transactions, data deletion) should require explicit user confirmation.",
+      "remediation": "Add human-in-the-loop confirmation for destructive, irreversible, or high-impact operations. Never auto-execute commands that modify files, send data, or alter system state.",
+      "code_snippet": "\n## Red Flags\n\n- [ ] Modifying `worker/config.ts` without checking CI workflow impacts.\n- [ ] Changing endpoint output without updating E2E expectations.\n- [ ] Starting parallel work on security-critical files without coordination.",
+      "intent": null
+    }
+  ],
+  "metadata": {
+    "has_executable_scripts": false,
+    "skillspector_version": "2.1.4",
+    "llm_requested": true,
+    "llm_available": true
+  }
+}

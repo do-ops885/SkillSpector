@@ -1,0 +1,327 @@
+{
+  "skill": {
+    "name": "skill-creator",
+    "source": "/app/scripts/output/temp_repo/.agents/skills/skill-creator",
+    "scanned_at": "2026-06-15T17:42:13.008293+00:00"
+  },
+  "risk_assessment": {
+    "score": 100,
+    "severity": "CRITICAL",
+    "recommendation": "DO_NOT_INSTALL"
+  },
+  "components": [
+    {
+      "path": "SKILL.md",
+      "type": "markdown",
+      "lines": 140,
+      "executable": false,
+      "size_bytes": 5437
+    },
+    {
+      "path": "evals/evals.json",
+      "type": "json",
+      "lines": 22,
+      "executable": false,
+      "size_bytes": 543
+    },
+    {
+      "path": "references/best-practices.md",
+      "type": "markdown",
+      "lines": 253,
+      "executable": false,
+      "size_bytes": 5192
+    },
+    {
+      "path": "references/evaluating-skills.md",
+      "type": "markdown",
+      "lines": 390,
+      "executable": false,
+      "size_bytes": 8293
+    },
+    {
+      "path": "references/guide.md",
+      "type": "markdown",
+      "lines": 599,
+      "executable": false,
+      "size_bytes": 11635
+    },
+    {
+      "path": "references/output-patterns.md",
+      "type": "markdown",
+      "lines": 443,
+      "executable": false,
+      "size_bytes": 7956
+    },
+    {
+      "path": "references/workflows.md",
+      "type": "markdown",
+      "lines": 434,
+      "executable": false,
+      "size_bytes": 12607
+    },
+    {
+      "path": "scripts/aggregate_benchmark.py",
+      "type": "python",
+      "lines": 376,
+      "executable": true,
+      "size_bytes": 12675
+    },
+    {
+      "path": "scripts/init_skill.py",
+      "type": "python",
+      "lines": 237,
+      "executable": true,
+      "size_bytes": 5183
+    },
+    {
+      "path": "scripts/package_skill.py",
+      "type": "python",
+      "lines": 205,
+      "executable": true,
+      "size_bytes": 6113
+    },
+    {
+      "path": "scripts/quick_validate.py",
+      "type": "python",
+      "lines": 246,
+      "executable": true,
+      "size_bytes": 7800
+    },
+    {
+      "path": "templates-and-examples.md",
+      "type": "markdown",
+      "lines": 332,
+      "executable": false,
+      "size_bytes": 5962
+    }
+  ],
+  "issues": [
+    {
+      "id": "LP3",
+      "category": "MCP Least Privilege",
+      "pattern": null,
+      "severity": "MEDIUM",
+      "confidence": 0.7,
+      "location": {
+        "file": "SKILL.md",
+        "start_line": 1,
+        "end_line": null
+      },
+      "finding": null,
+      "explanation": "Without declared permissions the skill's intent is opaque and cannot be validated.",
+      "remediation": "Add a 'permissions' field to SKILL.md listing the capabilities this skill requires.",
+      "code_snippet": null,
+      "intent": null
+    },
+    {
+      "id": "E1",
+      "category": "Data Exfiltration",
+      "pattern": "External Transmission",
+      "severity": "MEDIUM",
+      "confidence": 0.5,
+      "location": {
+        "file": "references/best-practices.md",
+        "start_line": 152,
+        "end_line": null
+      },
+      "finding": "https://api.example.com/",
+      "explanation": "Data is being sent to an external URL. This could be legitimate telemetry or data exfiltration. Manual review is recommended.",
+      "remediation": "Verify the destination URL is trusted and necessary. Remove or replace with documented APIs. Ensure no secrets, tokens, or PII are transmitted.",
+      "code_snippet": "```python\n# Quick example\nimport requests\nr = requests.get(\"https://api.example.com/data\")\n```\n````\n",
+      "intent": null
+    },
+    {
+      "id": "EA3",
+      "category": "Excessive Agency",
+      "pattern": "Scope Creep",
+      "severity": "LOW",
+      "confidence": 0.75,
+      "location": {
+        "file": "SKILL.md",
+        "start_line": 77,
+        "end_line": null
+      },
+      "finding": "broaden scope",
+      "explanation": "Skill's behavior or capabilities extend beyond its stated purpose. Scope creep allows an agent to perform actions unrelated to its documented functionality, increasing the attack surface.",
+      "remediation": "Limit the skill's scope to its documented purpose. Remove instructions that enable the agent to perform actions outside its stated functionality.",
+      "code_snippet": "10. **Evaluate on both sets** \u2014 Train results guide changes; validation tells if changes generalize\n11. **Identify failures in train set only** \u2014 Keep validation results hidden during iteration\n12. **Revise strategically:**\n    - Should-trigger failing \u2192 broaden scope or add context\n    - Should-not-trigger false-triggering \u2192 add specificity about what the skill does *not* do\n13. **Select best iteration by validation pass rate**\n14. **Check the 1024-character limit**",
+      "intent": null
+    },
+    {
+      "id": "MP3",
+      "category": "Memory Poisoning",
+      "pattern": "Memory Manipulation",
+      "severity": "HIGH",
+      "confidence": 0.8,
+      "location": {
+        "file": "references/guide.md",
+        "start_line": 462,
+        "end_line": null
+      },
+      "finding": "Clear context",
+      "explanation": "Skill manipulates agent memory, state, or stored context. Memory corruption can alter personality, override safety rules, or cause unpredictable behavior.",
+      "remediation": "Protect agent memory and state from modification by untrusted content. Use read-only memory for critical instructions and validate all state changes.",
+      "code_snippet": "\n### Manual Test\n\n1. Clear context: `/clear`\n2. Ask a question that should trigger the skill\n3. Verify skill is invoked appropriately\n4. Check guidance is helpful",
+      "intent": null
+    },
+    {
+      "id": "OH1",
+      "category": "Output Handling",
+      "pattern": "Unvalidated Output Injection",
+      "severity": "HIGH",
+      "confidence": 0.85,
+      "location": {
+        "file": "references/workflows.md",
+        "start_line": 149,
+        "end_line": null
+      },
+      "finding": "subprocess.run(\n        [\"agent\", \"load-skill\", \"./my-skill\"],\n        capture_output",
+      "explanation": "Model output is used without validation or sanitization. Unvalidated output injected into downstream contexts (SQL, shell, HTML) enables injection attacks and arbitrary code execution.",
+      "remediation": "Validate and sanitize all model output before using it in downstream contexts. Use parameterized queries for SQL, shell quoting for commands, and HTML encoding for web output.",
+      "code_snippet": "\ndef test_skill_execution():\n    # Load skill\n    result = subprocess.run(\n        [\"agent\", \"load-skill\", \"./my-skill\"],\n        capture_output=True\n    )",
+      "intent": null
+    },
+    {
+      "id": "OH1",
+      "category": "Output Handling",
+      "pattern": "Unvalidated Output Injection",
+      "severity": "HIGH",
+      "confidence": 0.85,
+      "location": {
+        "file": "references/workflows.md",
+        "start_line": 156,
+        "end_line": null
+      },
+      "finding": "subprocess.run(\n        [\"agent\", \"execute\", \"task1\"],\n        capture_output",
+      "explanation": "Model output is used without validation or sanitization. Unvalidated output injected into downstream contexts (SQL, shell, HTML) enables injection attacks and arbitrary code execution.",
+      "remediation": "Validate and sanitize all model output before using it in downstream contexts. Use parameterized queries for SQL, shell quoting for commands, and HTML encoding for web output.",
+      "code_snippet": "    assert result.returncode == 0\n\n    # Test basic execution\n    result = subprocess.run(\n        [\"agent\", \"execute\", \"task1\"],\n        capture_output=True\n    )",
+      "intent": null
+    },
+    {
+      "id": "RA1",
+      "category": "Rogue Agent",
+      "pattern": "Self-Modification",
+      "severity": "HIGH",
+      "confidence": 0.85,
+      "location": {
+        "file": "references/evaluating-skills.md",
+        "start_line": 346,
+        "end_line": null
+      },
+      "finding": "Update skill",
+      "explanation": "Skill modifies its own code, configuration, or behavior at runtime. Self-modification enables an agent to escalate privileges, disable safety constraints, or install persistent backdoors.",
+      "remediation": "Prevent the skill from modifying its own code, SKILL.md, or configuration files. Treat skill files as read-only at runtime.",
+      "code_snippet": "\n1. **Collect data** from benchmarks and usage\n2. **Identify weaknesses** from failures\n3. **Update skill** to address issues\n4. **Re-test** to verify improvements\n5. **Version** and **deploy** updated skill\n",
+      "intent": null
+    },
+    {
+      "id": "RA1",
+      "category": "Rogue Agent",
+      "pattern": "Self-Modification",
+      "severity": "HIGH",
+      "confidence": 0.85,
+      "location": {
+        "file": "references/workflows.md",
+        "start_line": 36,
+        "end_line": null
+      },
+      "finding": "Write SKILL",
+      "explanation": "Skill modifies its own code, configuration, or behavior at runtime. Self-modification enables an agent to escalate privileges, disable safety constraints, or install persistent backdoors.",
+      "remediation": "Prevent the skill from modifying its own code, SKILL.md, or configuration files. Treat skill files as read-only at runtime.",
+      "code_snippet": "\n1. Define skill purpose and scope\n2. Initialize with init_skill.py\n3. Write SKILL.md content\n4. Validate with quick_validate.py\n5. Test all examples\n6. Package and version",
+      "intent": null
+    },
+    {
+      "id": "RA1",
+      "category": "Rogue Agent",
+      "pattern": "Self-Modification",
+      "severity": "HIGH",
+      "confidence": 0.85,
+      "location": {
+        "file": "references/workflows.md",
+        "start_line": 108,
+        "end_line": null
+      },
+      "finding": "Update skill",
+      "explanation": "Skill modifies its own code, configuration, or behavior at runtime. Self-modification enables an agent to escalate privileges, disable safety constraints, or install persistent backdoors.",
+      "remediation": "Prevent the skill from modifying its own code, SKILL.md, or configuration files. Treat skill files as read-only at runtime.",
+      "code_snippet": "3. Run tests with agent\n4. Score and collect metrics\n5. Analyze failure patterns\n6. Update skill to address issues\n7. Re-test to verify improvements\n\n## Testing Workflows",
+      "intent": null
+    },
+    {
+      "id": "RA1",
+      "category": "Rogue Agent",
+      "pattern": "Self-Modification",
+      "severity": "HIGH",
+      "confidence": 0.85,
+      "location": {
+        "file": "references/workflows.md",
+        "start_line": 203,
+        "end_line": null
+      },
+      "finding": "Update skill",
+      "explanation": "Skill modifies its own code, configuration, or behavior at runtime. Self-modification enables an agent to escalate privileges, disable safety constraints, or install persistent backdoors.",
+      "remediation": "Prevent the skill from modifying its own code, SKILL.md, or configuration files. Treat skill files as read-only at runtime.",
+      "code_snippet": "3. Identify slow operations\n4. Optimize instructions or examples\n5. Verify improvements\n6. Update skill with learnings\n\n### 2. Error Pattern Analysis\n",
+      "intent": null
+    },
+    {
+      "id": "RA1",
+      "category": "Rogue Agent",
+      "pattern": "Self-Modification",
+      "severity": "HIGH",
+      "confidence": 0.85,
+      "location": {
+        "file": "scripts/aggregate_benchmark.py",
+        "start_line": 227,
+        "end_line": null
+      },
+      "finding": "update skill",
+      "explanation": "Skill modifies its own code, configuration, or behavior at runtime. Self-modification enables an agent to escalate privileges, disable safety constraints, or install persistent backdoors.",
+      "remediation": "Prevent the skill from modifying its own code, SKILL.md, or configuration files. Treat skill files as read-only at runtime.",
+      "code_snippet": "            lines.append(f\"- Focus area: Address '{top_error}' errors\")\n    elif overall_success >= 70:\n        lines.append(\"- Status: FAIR - Significant improvements needed\")\n        lines.append(\"- Review failing tests and update skills accordingly\")\n    else:\n        lines.append(\"- Status: POOR - Major revision required\")\n        lines.append(\"- Consider redesigning skill approach\")",
+      "intent": null
+    },
+    {
+      "id": "TM1",
+      "category": "Tool Misuse",
+      "pattern": "Tool Parameter Abuse",
+      "severity": "HIGH",
+      "confidence": 0.85,
+      "location": {
+        "file": "scripts/package_skill.py",
+        "start_line": 124,
+        "end_line": null
+      },
+      "finding": "--no-validate",
+      "explanation": "Tool parameters are crafted to achieve unintended or unsafe behavior. Parameter abuse can bypass intended safety checks (e.g. shell=True, --force, dangerous glob patterns).",
+      "remediation": "Validate all tool parameters against an allowlist. Reject dangerous parameter values (shell=True, --force, -rf /) and use safe defaults.",
+      "code_snippet": "        help=\"Output path (default: <skill-name>-<version>.skill in current directory)\"\n    )\n    parser.add_argument(\n        \"--no-validate\",\n        action=\"store_true\",\n        help=\"Skip validation before packaging\"\n    )",
+      "intent": null
+    },
+    {
+      "id": "TM1",
+      "category": "Tool Misuse",
+      "pattern": "Tool Parameter Abuse",
+      "severity": "HIGH",
+      "confidence": 0.85,
+      "location": {
+        "file": "scripts/package_skill.py",
+        "start_line": 180,
+        "end_line": null
+      },
+      "finding": "--no-validate",
+      "explanation": "Tool parameters are crafted to achieve unintended or unsafe behavior. Parameter abuse can bypass intended safety checks (e.g. shell=True, --force, dangerous glob patterns).",
+      "remediation": "Validate all tool parameters against an allowlist. Reject dangerous parameter values (shell=True, --force, -rf /) and use safe defaults.",
+      "code_snippet": "            for error in errors:\n                print(f\"  - {error}\")\n            print()\n            print(\"Use --no-validate to skip validation\")\n            sys.exit(1)\n\n        print(\"Validation passed!\")",
+      "intent": null
+    }
+  ],
+  "metadata": {
+    "has_executable_scripts": true,
+    "skillspector_version": "2.1.4",
+    "llm_requested": true,
+    "llm_available": true
+  }
+}

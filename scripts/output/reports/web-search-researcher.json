@@ -1,0 +1,88 @@
+{
+  "skill": {
+    "name": "web-search-researcher",
+    "source": "/app/scripts/output/temp_repo/.agents/skills/web-search-researcher",
+    "scanned_at": "2026-06-15T17:41:18.753427+00:00"
+  },
+  "risk_assessment": {
+    "score": 10,
+    "severity": "LOW",
+    "recommendation": "SAFE"
+  },
+  "components": [
+    {
+      "path": "SKILL.md",
+      "type": "markdown",
+      "lines": 221,
+      "executable": false,
+      "size_bytes": 5242
+    },
+    {
+      "path": "evals/evals.json",
+      "type": "json",
+      "lines": 31,
+      "executable": false,
+      "size_bytes": 1212
+    },
+    {
+      "path": "reference/guide.md",
+      "type": "markdown",
+      "lines": 1001,
+      "executable": false,
+      "size_bytes": 29081
+    },
+    {
+      "path": "references/automation-patterns.md",
+      "type": "markdown",
+      "lines": 71,
+      "executable": false,
+      "size_bytes": 1663
+    },
+    {
+      "path": "references/search-operators.md",
+      "type": "markdown",
+      "lines": 42,
+      "executable": false,
+      "size_bytes": 1644
+    },
+    {
+      "path": "references/sources/trust-ratings.md",
+      "type": "markdown",
+      "lines": 43,
+      "executable": false,
+      "size_bytes": 1135
+    },
+    {
+      "path": "references/templates/research-templates.md",
+      "type": "markdown",
+      "lines": 122,
+      "executable": false,
+      "size_bytes": 2513
+    }
+  ],
+  "issues": [
+    {
+      "id": "EA2",
+      "category": "Excessive Agency",
+      "pattern": "Autonomous Decision Making",
+      "severity": "MEDIUM",
+      "confidence": 0.75,
+      "location": {
+        "file": "reference/guide.md",
+        "start_line": 979,
+        "end_line": null
+      },
+      "finding": "without verification",
+      "explanation": "Skill enables autonomous high-impact decisions without human-in-the-loop verification. Critical operations (destructive commands, financial transactions, data deletion) should require explicit user confirmation.",
+      "remediation": "Add human-in-the-loop confirmation for destructive, irreversible, or high-impact operations. Never auto-execute commands that modify files, send data, or alter system state.",
+      "code_snippet": "\u2717 Ignore publication dates\n\u2717 Mix up different versions\n\u2717 Omit source attribution\n\u2717 Make assumptions without verification\n\u2717 Overlook conflicting information\n\n## Metrics and Measurement",
+      "intent": null
+    }
+  ],
+  "metadata": {
+    "has_executable_scripts": false,
+    "skillspector_version": "2.1.4",
+    "llm_requested": true,
+    "llm_available": true
+  }
+}
