@@ -1,0 +1,35 @@
+
+╭──────────────────────────────────────────────────────────────────────────────╮
+│ SkillSpector Security Report                                                 │
+╰─────────────────────────────────── v2.1.4 ───────────────────────────────────╯
+
+Skill: skill-evaluator
+Source: /app/do-deal-relay-tmp/.agents/skills/skill-evaluator
+Scanned: 2026-06-15 16:58:36 UTC
+
+
+    Risk Assessment
+ Score           13/100
+ Severity        LOW
+ Recommendation  SAFE
+
+
+                        Components (3)
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━┳━━━━━━━━━━━━┓
+┃ File                       ┃ Type     ┃ Lines ┃ Executable ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━╇━━━━━━━━━━━━┩
+│ SKILL.md                   │ markdown │   169 │ No         │
+│ evals/evals.json           │ json     │    22 │ No         │
+│ scripts/check_structure.py │ python   │   118 │ Yes        │
+└────────────────────────────┴──────────┴───────┴────────────┘
+
+
+Issues (1)
+
+  MEDIUM: LP3 - Skill has no declared permissions but code capabilities were...
+    Location: SKILL.md:1
+    Confidence: 70%
+    Remediation: Add a 'permissions' field to SKILL.md listing the capabilities
+this skill requires....
+
+Executable scripts: Yes

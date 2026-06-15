@@ -1,0 +1,123 @@
+
+╭──────────────────────────────────────────────────────────────────────────────╮
+│ SkillSpector Security Report                                                 │
+╰─────────────────────────────────── v2.1.4 ───────────────────────────────────╯
+
+Skill: skill-creator
+Source: /app/do-deal-relay-tmp/.agents/skills/skill-creator
+Scanned: 2026-06-15 16:58:30 UTC
+
+
+        Risk Assessment
+ Score           100/100
+ Severity        CRITICAL
+ Recommendation  DO NOT INSTALL
+
+
+                          Components (12)
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━┳━━━━━━━━━━━━┓
+┃ File                            ┃ Type     ┃ Lines ┃ Executable ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━╇━━━━━━━━━━━━┩
+│ SKILL.md                        │ markdown │   140 │ No         │
+│ evals/evals.json                │ json     │    22 │ No         │
+│ references/best-practices.md    │ markdown │   253 │ No         │
+│ references/evaluating-skills.md │ markdown │   390 │ No         │
+│ references/guide.md             │ markdown │   599 │ No         │
+│ references/output-patterns.md   │ markdown │   443 │ No         │
+│ references/workflows.md         │ markdown │   434 │ No         │
+│ scripts/aggregate_benchmark.py  │ python   │   376 │ Yes        │
+│ scripts/init_skill.py           │ python   │   237 │ Yes        │
+│ scripts/package_skill.py        │ python   │   205 │ Yes        │
+│ scripts/quick_validate.py       │ python   │   246 │ Yes        │
+│ templates-and-examples.md       │ markdown │   332 │ No         │
+└─────────────────────────────────┴──────────┴───────┴────────────┘
+
+
+Issues (13)
+
+  MEDIUM: LP3 - Skill has no declared permissions but code capabilities were...
+    Location: SKILL.md:1
+    Confidence: 70%
+    Remediation: Add a 'permissions' field to SKILL.md listing the capabilities
+this skill requires....
+
+  MEDIUM: E1 - External Transmission...
+    Location: references/best-practices.md:152
+    Confidence: 50%
+    Remediation: Verify the destination URL is trusted and necessary. Remove or
+replace with documented APIs. Ensure no secrets, tokens, or PII are
+transmitted....
+
+  LOW: EA3 - Scope Creep...
+    Location: SKILL.md:77
+    Confidence: 75%
+    Remediation: Limit the skill's scope to its documented purpose. Remove
+instructions that enable the agent to perform actions outside its stated
+functionality....
+
+  HIGH: MP3 - Memory Manipulation...
+    Location: references/guide.md:462
+    Confidence: 80%
+    Remediation: Protect agent memory and state from modification by untrusted
+content. Use read-only memory for critical instructions and validate all state
+changes....
+
+  HIGH: OH1 - Unvalidated Output Injection...
+    Location: references/workflows.md:149
+    Confidence: 85%
+    Remediation: Validate and sanitize all model output before using it in
+downstream contexts. Use parameterized queries for SQL, shell quoting for
+commands, and HTML...
+
+  HIGH: OH1 - Unvalidated Output Injection...
+    Location: references/workflows.md:156
+    Confidence: 85%
+    Remediation: Validate and sanitize all model output before using it in
+downstream contexts. Use parameterized queries for SQL, shell quoting for
+commands, and HTML...
+
+  HIGH: RA1 - Self-Modification...
+    Location: references/evaluating-skills.md:346
+    Confidence: 85%
+    Remediation: Prevent the skill from modifying its own code, SKILL.md, or
+configuration files. Treat skill files as read-only at runtime....
+
+  HIGH: RA1 - Self-Modification...
+    Location: references/workflows.md:36
+    Confidence: 85%
+    Remediation: Prevent the skill from modifying its own code, SKILL.md, or
+configuration files. Treat skill files as read-only at runtime....
+
+  HIGH: RA1 - Self-Modification...
+    Location: references/workflows.md:108
+    Confidence: 85%
+    Remediation: Prevent the skill from modifying its own code, SKILL.md, or
+configuration files. Treat skill files as read-only at runtime....
+
+  HIGH: RA1 - Self-Modification...
+    Location: references/workflows.md:203
+    Confidence: 85%
+    Remediation: Prevent the skill from modifying its own code, SKILL.md, or
+configuration files. Treat skill files as read-only at runtime....
+
+  HIGH: RA1 - Self-Modification...
+    Location: scripts/aggregate_benchmark.py:227
+    Confidence: 85%
+    Remediation: Prevent the skill from modifying its own code, SKILL.md, or
+configuration files. Treat skill files as read-only at runtime....
+
+  HIGH: TM1 - Tool Parameter Abuse...
+    Location: scripts/package_skill.py:124
+    Confidence: 85%
+    Remediation: Validate all tool parameters against an allowlist. Reject
+dangerous parameter values (shell=True, --force, -rf /) and use safe
+defaults....
+
+  HIGH: TM1 - Tool Parameter Abuse...
+    Location: scripts/package_skill.py:180
+    Confidence: 85%
+    Remediation: Validate all tool parameters against an allowlist. Reject
+dangerous parameter values (shell=True, --force, -rf /) and use safe
+defaults....
+
+Executable scripts: Yes

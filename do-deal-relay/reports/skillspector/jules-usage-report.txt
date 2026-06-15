@@ -1,0 +1,96 @@
+
+╭──────────────────────────────────────────────────────────────────────────────╮
+│ SkillSpector Security Report                                                 │
+╰─────────────────────────────────── v2.1.4 ───────────────────────────────────╯
+
+Skill: jules-usage
+Source: /app/do-deal-relay-tmp/.agents/skills/jules-usage
+Scanned: 2026-06-15 16:58:26 UTC
+
+
+        Risk Assessment
+ Score           100/100
+ Severity        CRITICAL
+ Recommendation  DO NOT INSTALL
+
+
+                         Components (11)
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━┳━━━━━━━━━━━━┓
+┃ File                           ┃ Type     ┃ Lines ┃ Executable ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━╇━━━━━━━━━━━━┩
+│ SKILL.md                       │ markdown │   139 │ No         │
+│ evals/evals.json               │ json     │   206 │ No         │
+│ evals/results.json             │ json     │   113 │ No         │
+│ evals/test_results.json        │ json     │   238 │ No         │
+│ examples/check-setup.sh        │ shell    │    45 │ Yes        │
+│ references/api-reference.md    │ markdown │   295 │ No         │
+│ references/commands.md         │ markdown │   100 │ No         │
+│ scripts/generate_evals.py      │ python   │   499 │ Yes        │
+│ scripts/jules_api_request.sh   │ shell    │    25 │ Yes        │
+│ scripts/jules_start_session.sh │ shell    │    42 │ Yes        │
+│ scripts/test.py                │ python   │   554 │ Yes        │
+└────────────────────────────────┴──────────┴───────┴────────────┘
+
+
+Issues (9)
+
+  MEDIUM: AST4 - subprocess module call...
+    Location: scripts/generate_evals.py:250–255
+    Confidence: 70%
+    Remediation: Use subprocess.run() with shell=False and an explicit argument
+list. Validate all inputs and avoid passing user-controlled data to commands....
+
+  MEDIUM: AST4 - subprocess module call...
+    Location: scripts/test.py:307–312
+    Confidence: 70%
+    Remediation: Use subprocess.run() with shell=False and an explicit argument
+list. Validate all inputs and avoid passing user-controlled data to commands....
+
+  MEDIUM: AST4 - subprocess module call...
+    Location: scripts/test.py:272–277
+    Confidence: 70%
+    Remediation: Use subprocess.run() with shell=False and an explicit argument
+list. Validate all inputs and avoid passing user-controlled data to commands....
+
+  MEDIUM: AST3 - Dynamic import via __import__()...
+    Location: scripts/test.py:484
+    Confidence: 75%
+    Remediation: Use standard import statements instead of __import__(). If
+dynamic loading is needed, use importlib with an allowlist of permitted
+modules....
+
+  MEDIUM: LP3 - Skill has no declared permissions but code capabilities were...
+    Location: SKILL.md:1
+    Confidence: 70%
+    Remediation: Add a 'permissions' field to SKILL.md listing the capabilities
+this skill requires....
+
+  MEDIUM: E1 - External Transmission...
+    Location: references/commands.md:34
+    Confidence: 60%
+    Remediation: Verify the destination URL is trusted and necessary. Remove or
+replace with documented APIs. Ensure no secrets, tokens, or PII are
+transmitted....
+
+  MEDIUM: E1 - External Transmission...
+    Location: scripts/jules_api_request.sh:21
+    Confidence: 70%
+    Remediation: Verify the destination URL is trusted and necessary. Remove or
+replace with documented APIs. Ensure no secrets, tokens, or PII are
+transmitted....
+
+  MEDIUM: EA2 - Autonomous Decision Making...
+    Location: scripts/generate_evals.py:144
+    Confidence: 75%
+    Remediation: Add human-in-the-loop confirmation for destructive,
+irreversible, or high-impact operations. Never auto-execute commands that modify
+files, send data,...
+
+  HIGH: TM1 - Tool Parameter Abuse...
+    Location: references/commands.md:33
+    Confidence: 80%
+    Remediation: Validate all tool parameters against an allowlist. Reject
+dangerous parameter values (shell=True, --force, -rf /) and use safe
+defaults....
+
+Executable scripts: Yes
