@@ -1,0 +1,783 @@
+{
+  "skill": {
+    "name": "turnstile-spin",
+    "source": "/tmp/do-deal-relay/.agents/skills/turnstile-spin",
+    "scanned_at": "2026-06-15T16:33:15.533472+00:00"
+  },
+  "risk_assessment": {
+    "score": 100,
+    "severity": "CRITICAL",
+    "recommendation": "DO_NOT_INSTALL"
+  },
+  "components": [
+    {
+      "path": "README.md",
+      "type": "markdown",
+      "lines": 45,
+      "executable": false,
+      "size_bytes": 2772
+    },
+    {
+      "path": "SKILL.md",
+      "type": "markdown",
+      "lines": 183,
+      "executable": false,
+      "size_bytes": 16002
+    },
+    {
+      "path": "references/astro.md",
+      "type": "markdown",
+      "lines": 102,
+      "executable": false,
+      "size_bytes": 2439
+    },
+    {
+      "path": "references/hugo.md",
+      "type": "markdown",
+      "lines": 62,
+      "executable": false,
+      "size_bytes": 1459
+    },
+    {
+      "path": "references/nextjs-app.md",
+      "type": "markdown",
+      "lines": 110,
+      "executable": false,
+      "size_bytes": 2871
+    },
+    {
+      "path": "references/nextjs-pages.md",
+      "type": "markdown",
+      "lines": 59,
+      "executable": false,
+      "size_bytes": 1947
+    },
+    {
+      "path": "references/sveltekit.md",
+      "type": "markdown",
+      "lines": 84,
+      "executable": false,
+      "size_bytes": 2362
+    },
+    {
+      "path": "references/vanilla-html.md",
+      "type": "markdown",
+      "lines": 62,
+      "executable": false,
+      "size_bytes": 1939
+    },
+    {
+      "path": "scripts/auth-probe.sh",
+      "type": "shell",
+      "lines": 96,
+      "executable": true,
+      "size_bytes": 5171
+    },
+    {
+      "path": "scripts/fetch-secret.sh",
+      "type": "shell",
+      "lines": 66,
+      "executable": true,
+      "size_bytes": 3025
+    },
+    {
+      "path": "scripts/persist-skill.sh",
+      "type": "shell",
+      "lines": 53,
+      "executable": true,
+      "size_bytes": 2117
+    },
+    {
+      "path": "scripts/validate.sh",
+      "type": "shell",
+      "lines": 87,
+      "executable": true,
+      "size_bytes": 3721
+    },
+    {
+      "path": "scripts/widget-create.sh",
+      "type": "shell",
+      "lines": 57,
+      "executable": true,
+      "size_bytes": 2437
+    },
+    {
+      "path": "scripts/worker-deploy.sh",
+      "type": "shell",
+      "lines": 102,
+      "executable": true,
+      "size_bytes": 4083
+    },
+    {
+      "path": "templates/worker/LICENSE",
+      "type": "other",
+      "lines": 21,
+      "executable": false,
+      "size_bytes": 1073
+    },
+    {
+      "path": "templates/worker/README.md",
+      "type": "markdown",
+      "lines": 196,
+      "executable": false,
+      "size_bytes": 9085
+    },
+    {
+      "path": "templates/worker/package.json",
+      "type": "json",
+      "lines": 39,
+      "executable": false,
+      "size_bytes": 1082
+    },
+    {
+      "path": "templates/worker/public/post-deploy.html",
+      "type": "other",
+      "lines": 287,
+      "executable": false,
+      "size_bytes": 7209
+    },
+    {
+      "path": "templates/worker/src/errors.ts",
+      "type": "typescript",
+      "lines": 29,
+      "executable": true,
+      "size_bytes": 749
+    },
+    {
+      "path": "templates/worker/src/index.ts",
+      "type": "typescript",
+      "lines": 199,
+      "executable": true,
+      "size_bytes": 7043
+    },
+    {
+      "path": "templates/worker/src/observability.ts",
+      "type": "typescript",
+      "lines": 34,
+      "executable": true,
+      "size_bytes": 1140
+    },
+    {
+      "path": "templates/worker/src/types.ts",
+      "type": "typescript",
+      "lines": 95,
+      "executable": true,
+      "size_bytes": 2886
+    },
+    {
+      "path": "templates/worker/src/validate.ts",
+      "type": "typescript",
+      "lines": 101,
+      "executable": true,
+      "size_bytes": 3751
+    },
+    {
+      "path": "templates/worker/test/deploy.test.ts",
+      "type": "typescript",
+      "lines": 71,
+      "executable": true,
+      "size_bytes": 2283
+    },
+    {
+      "path": "templates/worker/test/integration.test.ts",
+      "type": "typescript",
+      "lines": 87,
+      "executable": true,
+      "size_bytes": 3110
+    },
+    {
+      "path": "templates/worker/test/unit.test.ts",
+      "type": "typescript",
+      "lines": 372,
+      "executable": true,
+      "size_bytes": 11447
+    },
+    {
+      "path": "templates/worker/test/validation.test.ts",
+      "type": "typescript",
+      "lines": 201,
+      "executable": true,
+      "size_bytes": 7027
+    },
+    {
+      "path": "templates/worker/tsconfig.json",
+      "type": "json",
+      "lines": 24,
+      "executable": false,
+      "size_bytes": 649
+    },
+    {
+      "path": "templates/worker/vitest.config.ts",
+      "type": "typescript",
+      "lines": 12,
+      "executable": true,
+      "size_bytes": 364
+    },
+    {
+      "path": "templates/worker/wrangler.toml",
+      "type": "toml",
+      "lines": 36,
+      "executable": false,
+      "size_bytes": 1385
+    },
+    {
+      "path": "tests/validation.md",
+      "type": "markdown",
+      "lines": 69,
+      "executable": false,
+      "size_bytes": 2166
+    }
+  ],
+  "issues": [
+    {
+      "id": "LP3",
+      "category": "MCP Least Privilege",
+      "pattern": null,
+      "severity": "MEDIUM",
+      "confidence": 0.7,
+      "location": {
+        "file": "SKILL.md",
+        "start_line": 1,
+        "end_line": null
+      },
+      "finding": null,
+      "explanation": "Without declared permissions the skill's intent is opaque and cannot be validated.",
+      "remediation": "Add a 'permissions' field to SKILL.md listing the capabilities this skill requires.",
+      "code_snippet": null,
+      "intent": null
+    },
+    {
+      "id": "E1",
+      "category": "Data Exfiltration",
+      "pattern": "External Transmission",
+      "severity": "MEDIUM",
+      "confidence": 0.6,
+      "location": {
+        "file": "SKILL.md",
+        "start_line": 147,
+        "end_line": null
+      },
+      "finding": "curl -X PUT .../widgets/$SITEKEY -d ",
+      "explanation": "Data is being sent to an external URL. This could be legitimate telemetry or data exfiltration. Manual review is recommended.",
+      "remediation": "Verify the destination URL is trusted and necessary. Remove or replace with documented APIs. Ensure no secrets, tokens, or PII are transmitted.",
+      "code_snippet": "| `wrangler` not installed | Install path: `npm install --save-dev wrangler` (Node project) or `npm install -g wrangler` (other) |\n| Multiple Cloudflare accounts | `scripts/auth-probe.sh` returns all accounts; ask the user to choose, export `CLOUDFLARE_ACCOUNT_ID` |\n| Cloudflare Pages project | Deploy the managed Worker anyway, OR suggest the [Pages Plugin](https://developers.cloudflare.com/pages/functions/plugins/turnstile/) |\n| `EXPECTED_HOSTNAME` mismatch | Update widget domains via PUT, not PATCH (PATCH returns `10405 Method not allowed`): `curl -X PUT .../widgets/$SITEKEY -d '{\"name\":\"...\",\"mode\":\"managed\",\"domains\":[...]}'` |\n| Worker name conflict | `worker-deploy.sh` retries automatically with a hash suffix |\n| Token expired mid-flow | Stop, re-run `scripts/auth-probe.sh`, prompt for fresh credentials |\n| Step 11 returns `missing-input-secret` | Secret didn't propagate. Re-set: `echo \"$WIDGET_SECRET\" \\| npx wrangler secret put TURNSTILE_SECRET_KEY --name <worker_name from worker-deploy.sh output>`, wait 10s, re-validate. Use the `worker_name` field returned by `worker-deploy.sh`; do not rely on a `$WORKER_NAME` env var. |",
+      "intent": null
+    },
+    {
+      "id": "E1",
+      "category": "Data Exfiltration",
+      "pattern": "External Transmission",
+      "severity": "MEDIUM",
+      "confidence": 0.6,
+      "location": {
+        "file": "references/astro.md",
+        "start_line": 84,
+        "end_line": null
+      },
+      "finding": "fetch(\"https://YOUR_WORKER_URL/\", {\n\t\t\t\tmethod: \"POST\"",
+      "explanation": "Data is being sent to an external URL. This could be legitimate telemetry or data exfiltration. Manual review is recommended.",
+      "remediation": "Verify the destination URL is trusted and necessary. Remove or replace with documented APIs. Ensure no secrets, tokens, or PII are transmitted.",
+      "code_snippet": "\t\t\t\"cf-turnstile-response\": z.string(),\n\t\t}),\n\t\thandler: async (input) => {\n\t\t\tconst verify = await fetch(\"https://YOUR_WORKER_URL/\", {\n\t\t\t\tmethod: \"POST\",\n\t\t\t\theaders: { \"Content-Type\": \"application/json\" },\n\t\t\t\tbody: JSON.stringify({ token: input[\"cf-turnstile-response\"] }),",
+      "intent": null
+    },
+    {
+      "id": "E1",
+      "category": "Data Exfiltration",
+      "pattern": "External Transmission",
+      "severity": "MEDIUM",
+      "confidence": 0.6,
+      "location": {
+        "file": "references/nextjs-app.md",
+        "start_line": 25,
+        "end_line": null
+      },
+      "finding": "fetch(\"https://YOUR_WORKER_URL/\", {\n\t\t\tmethod: \"POST\"",
+      "explanation": "Data is being sent to an external URL. This could be legitimate telemetry or data exfiltration. Manual review is recommended.",
+      "remediation": "Verify the destination URL is trusted and necessary. Remove or replace with documented APIs. Ensure no secrets, tokens, or PII are transmitted.",
+      "code_snippet": "\n\tasync function handleSubmit(e: React.FormEvent<HTMLFormElement>) {\n\t\te.preventDefault();\n\t\tconst res = await fetch(\"https://YOUR_WORKER_URL/\", {\n\t\t\tmethod: \"POST\",\n\t\t\theaders: { \"Content-Type\": \"application/json\" },\n\t\t\tbody: JSON.stringify({ token }),",
+      "intent": null
+    },
+    {
+      "id": "E1",
+      "category": "Data Exfiltration",
+      "pattern": "External Transmission",
+      "severity": "MEDIUM",
+      "confidence": 0.6,
+      "location": {
+        "file": "references/nextjs-app.md",
+        "start_line": 71,
+        "end_line": null
+      },
+      "finding": "fetch(\"https://YOUR_WORKER_URL/\", {\n\t\tmethod: \"POST\"",
+      "explanation": "Data is being sent to an external URL. This could be legitimate telemetry or data exfiltration. Manual review is recommended.",
+      "remediation": "Verify the destination URL is trusted and necessary. Remove or replace with documented APIs. Ensure no secrets, tokens, or PII are transmitted.",
+      "code_snippet": "export async function submitSignup(formData: FormData) {\n\tconst token = formData.get(\"cf-turnstile-response\") as string;\n\n\tconst res = await fetch(\"https://YOUR_WORKER_URL/\", {\n\t\tmethod: \"POST\",\n\t\theaders: { \"Content-Type\": \"application/json\" },\n\t\tbody: JSON.stringify({ token }),",
+      "intent": null
+    },
+    {
+      "id": "E1",
+      "category": "Data Exfiltration",
+      "pattern": "External Transmission",
+      "severity": "MEDIUM",
+      "confidence": 0.6,
+      "location": {
+        "file": "references/nextjs-pages.md",
+        "start_line": 38,
+        "end_line": null
+      },
+      "finding": "fetch(\"https://YOUR_WORKER_URL/\", {\n\t\tmethod: \"POST\"",
+      "explanation": "Data is being sent to an external URL. This could be legitimate telemetry or data exfiltration. Manual review is recommended.",
+      "remediation": "Verify the destination URL is trusted and necessary. Remove or replace with documented APIs. Ensure no secrets, tokens, or PII are transmitted.",
+      "code_snippet": "\tres: NextApiResponse,\n) {\n\tconst token = req.body[\"cf-turnstile-response\"] ?? req.body.token;\n\tconst verify = await fetch(\"https://YOUR_WORKER_URL/\", {\n\t\tmethod: \"POST\",\n\t\theaders: { \"Content-Type\": \"application/json\" },\n\t\tbody: JSON.stringify({ token }),",
+      "intent": null
+    },
+    {
+      "id": "E1",
+      "category": "Data Exfiltration",
+      "pattern": "External Transmission",
+      "severity": "MEDIUM",
+      "confidence": 0.6,
+      "location": {
+        "file": "references/sveltekit.md",
+        "start_line": 16,
+        "end_line": null
+      },
+      "finding": "fetch(\"https://YOUR_WORKER_URL/\", {\n\t\t\tmethod: \"POST\"",
+      "explanation": "Data is being sent to an external URL. This could be legitimate telemetry or data exfiltration. Manual review is recommended.",
+      "remediation": "Verify the destination URL is trusted and necessary. Remove or replace with documented APIs. Ensure no secrets, tokens, or PII are transmitted.",
+      "code_snippet": "\n\tasync function handleSubmit(e: Event) {\n\t\te.preventDefault();\n\t\tconst res = await fetch(\"https://YOUR_WORKER_URL/\", {\n\t\t\tmethod: \"POST\",\n\t\t\theaders: { \"Content-Type\": \"application/json\" },\n\t\t\tbody: JSON.stringify({ token }),",
+      "intent": null
+    },
+    {
+      "id": "E1",
+      "category": "Data Exfiltration",
+      "pattern": "External Transmission",
+      "severity": "MEDIUM",
+      "confidence": 0.6,
+      "location": {
+        "file": "references/sveltekit.md",
+        "start_line": 61,
+        "end_line": null
+      },
+      "finding": "fetch(\"https://YOUR_WORKER_URL/\", {\n\t\t\tmethod: \"POST\"",
+      "explanation": "Data is being sent to an external URL. This could be legitimate telemetry or data exfiltration. Manual review is recommended.",
+      "remediation": "Verify the destination URL is trusted and necessary. Remove or replace with documented APIs. Ensure no secrets, tokens, or PII are transmitted.",
+      "code_snippet": "\t\tconst data = await request.formData();\n\t\tconst token = data.get(\"cf-turnstile-response\") as string;\n\n\t\tconst verify = await fetch(\"https://YOUR_WORKER_URL/\", {\n\t\t\tmethod: \"POST\",\n\t\t\theaders: { \"Content-Type\": \"application/json\" },\n\t\t\tbody: JSON.stringify({ token }),",
+      "intent": null
+    },
+    {
+      "id": "E1",
+      "category": "Data Exfiltration",
+      "pattern": "External Transmission",
+      "severity": "MEDIUM",
+      "confidence": 0.6,
+      "location": {
+        "file": "references/vanilla-html.md",
+        "start_line": 52,
+        "end_line": null
+      },
+      "finding": "fetch(\"https://YOUR_WORKER_URL/\", {\n\t\t\tmethod: \"POST\"",
+      "explanation": "Data is being sent to an external URL. This could be legitimate telemetry or data exfiltration. Manual review is recommended.",
+      "remediation": "Verify the destination URL is trusted and necessary. Remove or replace with documented APIs. Ensure no secrets, tokens, or PII are transmitted.",
+      "code_snippet": "\tdocument.querySelector(\"form\").addEventListener(\"submit\", async (e) => {\n\t\te.preventDefault();\n\t\tconst data = new FormData(e.target);\n\t\tconst res = await fetch(\"https://YOUR_WORKER_URL/\", {\n\t\t\tmethod: \"POST\",\n\t\t\tbody: data,\n\t\t});",
+      "intent": null
+    },
+    {
+      "id": "E1",
+      "category": "Data Exfiltration",
+      "pattern": "External Transmission",
+      "severity": "MEDIUM",
+      "confidence": 0.6,
+      "location": {
+        "file": "scripts/auth-probe.sh",
+        "start_line": 70,
+        "end_line": null
+      },
+      "finding": "https://api.cloudflare.com/",
+      "explanation": "Data is being sent to an external URL. This could be legitimate telemetry or data exfiltration. Manual review is recommended.",
+      "remediation": "Verify the destination URL is trusted and necessary. Remove or replace with documented APIs. Ensure no secrets, tokens, or PII are transmitted.",
+      "code_snippet": "# Probe Turnstile scope on the selected account\ntmp=$(mktemp)\nhttp_code=$(curl -sS -w \"%{http_code}\" -o \"$tmp\" \\\n  \"https://api.cloudflare.com/client/v4/accounts/$account_id/challenges/widgets\" \\\n  -H \"Authorization: Bearer $token\" 2>/dev/null || echo \"000\")\nbody=$(cat \"$tmp\"); rm -f \"$tmp\"\nsuccess=$(echo \"$body\" | (jq -r '.success' 2>/dev/null || echo \"false\"))",
+      "intent": null
+    },
+    {
+      "id": "E1",
+      "category": "Data Exfiltration",
+      "pattern": "External Transmission",
+      "severity": "MEDIUM",
+      "confidence": 0.6,
+      "location": {
+        "file": "scripts/auth-probe.sh",
+        "start_line": 86,
+        "end_line": null
+      },
+      "finding": "https://api.cloudflare.com/",
+      "explanation": "Data is being sent to an external URL. This could be legitimate telemetry or data exfiltration. Manual review is recommended.",
+      "remediation": "Verify the destination URL is trusted and necessary. Remove or replace with documented APIs. Ensure no secrets, tokens, or PII are transmitted.",
+      "code_snippet": "# missing_workers_scope; the agent should suggest adding Read alongside Edit.\ntmp=$(mktemp)\nworkers_code=$(curl -sS -w \"%{http_code}\" -o \"$tmp\" \\\n  \"https://api.cloudflare.com/client/v4/accounts/$account_id/workers/scripts\" \\\n  -H \"Authorization: Bearer $token\" 2>/dev/null || echo \"000\")\nworkers_body=$(cat \"$tmp\"); rm -f \"$tmp\"\nworkers_success=$(echo \"$workers_body\" | (jq -r '.success' 2>/dev/null || echo \"false\"))",
+      "intent": null
+    },
+    {
+      "id": "E1",
+      "category": "Data Exfiltration",
+      "pattern": "External Transmission",
+      "severity": "MEDIUM",
+      "confidence": 0.6,
+      "location": {
+        "file": "scripts/fetch-secret.sh",
+        "start_line": 40,
+        "end_line": null
+      },
+      "finding": "https://api.cloudflare.com/",
+      "explanation": "Data is being sent to an external URL. This could be legitimate telemetry or data exfiltration. Manual review is recommended.",
+      "remediation": "Verify the destination URL is trusted and necessary. Remove or replace with documented APIs. Ensure no secrets, tokens, or PII are transmitted.",
+      "code_snippet": "\ntmp=$(mktemp)\nhttp_code=$(curl -sS -w \"%{http_code}\" -o \"$tmp\" \\\n  \"https://api.cloudflare.com/client/v4/accounts/$ACCOUNT_ID/challenges/widgets/$SITEKEY\" \\\n  -H \"Authorization: Bearer $CLOUDFLARE_API_TOKEN\" 2>/dev/null || echo \"000\")\nbody=$(cat \"$tmp\"); rm -f \"$tmp\"\n",
+      "intent": null
+    },
+    {
+      "id": "E1",
+      "category": "Data Exfiltration",
+      "pattern": "External Transmission",
+      "severity": "MEDIUM",
+      "confidence": 0.7,
+      "location": {
+        "file": "scripts/validate.sh",
+        "start_line": 44,
+        "end_line": null
+      },
+      "finding": "curl -sS -X POST \"${WORKER_URL}/\" \\\n  -H \"Content-Type: application/json\" \\\n  -d ",
+      "explanation": "Data is being sent to an external URL. This could be legitimate telemetry or data exfiltration. Manual review is recommended.",
+      "remediation": "Verify the destination URL is trusted and necessary. Remove or replace with documented APIs. Ensure no secrets, tokens, or PII are transmitted.",
+      "code_snippet": "fi\n\n# Check 2: dummy siteverify; should return success:false + error-codes array\ndummy=$(curl -sS -X POST \"${WORKER_URL}/\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"token\":\"XXXX.DUMMY.TOKEN.XXXX\"}' 2>/dev/null || echo \"\")\n",
+      "intent": null
+    },
+    {
+      "id": "E1",
+      "category": "Data Exfiltration",
+      "pattern": "External Transmission",
+      "severity": "MEDIUM",
+      "confidence": 0.6,
+      "location": {
+        "file": "scripts/validate.sh",
+        "start_line": 69,
+        "end_line": null
+      },
+      "finding": "https://api.cloudflare.com/",
+      "explanation": "Data is being sent to an external URL. This could be legitimate telemetry or data exfiltration. Manual review is recommended.",
+      "remediation": "Verify the destination URL is trusted and necessary. Remove or replace with documented APIs. Ensure no secrets, tokens, or PII are transmitted.",
+      "code_snippet": "\n# Check 3: hostname / widget domains registered\nwidget=$(curl -sS \\\n  \"https://api.cloudflare.com/client/v4/accounts/$ACCOUNT_ID/challenges/widgets/$SITEKEY\" \\\n  -H \"Authorization: Bearer $CLOUDFLARE_API_TOKEN\" 2>/dev/null)\nregistered=$(echo \"$widget\" | (jq -r '.result.domains[]' 2>/dev/null || python3 -c \"import sys,json; [print(d) for d in json.load(sys.stdin)['result']['domains']]\"))\n",
+      "intent": null
+    },
+    {
+      "id": "E1",
+      "category": "Data Exfiltration",
+      "pattern": "External Transmission",
+      "severity": "MEDIUM",
+      "confidence": 0.7,
+      "location": {
+        "file": "scripts/widget-create.sh",
+        "start_line": 38,
+        "end_line": null
+      },
+      "finding": "curl -sS -X POST \\\n  \"https://api.cloudflare.com/client/v4/accounts/$ACCOUNT_ID/challenges/widgets\" \\\n  -H \"Authorization: Bearer $CLOUDFLARE_API_TOKEN\" \\\n  -H \"Content-Type: application/json\" \\\n  -d ",
+      "explanation": "Data is being sent to an external URL. This could be legitimate telemetry or data exfiltration. Manual review is recommended.",
+      "remediation": "Verify the destination URL is trusted and necessary. Remove or replace with documented APIs. Ensure no secrets, tokens, or PII are transmitted.",
+      "code_snippet": "\ndomains_json=$(python3 -c \"import sys; print(__import__('json').dumps(sys.argv[1].split(',')))\" \"$DOMAINS\")\n\nbody=$(curl -sS -X POST \\\n  \"https://api.cloudflare.com/client/v4/accounts/$ACCOUNT_ID/challenges/widgets\" \\\n  -H \"Authorization: Bearer $CLOUDFLARE_API_TOKEN\" \\\n  -H \"Content-Type: application/json\" \\",
+      "intent": null
+    },
+    {
+      "id": "E1",
+      "category": "Data Exfiltration",
+      "pattern": "External Transmission",
+      "severity": "MEDIUM",
+      "confidence": 0.6,
+      "location": {
+        "file": "scripts/widget-create.sh",
+        "start_line": 39,
+        "end_line": null
+      },
+      "finding": "https://api.cloudflare.com/",
+      "explanation": "Data is being sent to an external URL. This could be legitimate telemetry or data exfiltration. Manual review is recommended.",
+      "remediation": "Verify the destination URL is trusted and necessary. Remove or replace with documented APIs. Ensure no secrets, tokens, or PII are transmitted.",
+      "code_snippet": "domains_json=$(python3 -c \"import sys; print(__import__('json').dumps(sys.argv[1].split(',')))\" \"$DOMAINS\")\n\nbody=$(curl -sS -X POST \\\n  \"https://api.cloudflare.com/client/v4/accounts/$ACCOUNT_ID/challenges/widgets\" \\\n  -H \"Authorization: Bearer $CLOUDFLARE_API_TOKEN\" \\\n  -H \"Content-Type: application/json\" \\\n  -d \"{\\\"name\\\":\\\"$NAME\\\",\\\"domains\\\":$domains_json,\\\"mode\\\":\\\"$MODE\\\"}\" 2>/dev/null)",
+      "intent": null
+    },
+    {
+      "id": "E1",
+      "category": "Data Exfiltration",
+      "pattern": "External Transmission",
+      "severity": "MEDIUM",
+      "confidence": 0.6,
+      "location": {
+        "file": "tests/validation.md",
+        "start_line": 20,
+        "end_line": null
+      },
+      "finding": "curl -s -X POST \"${WORKER_URL}/\" \\\n  -H \"Content-Type: application/json\" \\\n  -d ",
+      "explanation": "Data is being sent to an external URL. This could be legitimate telemetry or data exfiltration. Manual review is recommended.",
+      "remediation": "Verify the destination URL is trusted and necessary. Remove or replace with documented APIs. Ensure no secrets, tokens, or PII are transmitted.",
+      "code_snippet": "The wizard's Step 7b sends a deliberately-invalid token. The Worker must return `success: false`, a non-empty `error-codes` array, and a `_worker` block \u2014 not a bare 500.\n\n```sh\ncurl -s -X POST \"${WORKER_URL}/\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"token\":\"XXXX.DUMMY.TOKEN.XXXX\"}' | \\\n  jq -e '.success == false and (.[\"error-codes\"] | length) > 0 and (._worker | type) == \"object\"'",
+      "intent": null
+    },
+    {
+      "id": "EA2",
+      "category": "Excessive Agency",
+      "pattern": "Autonomous Decision Making",
+      "severity": "MEDIUM",
+      "confidence": 0.75,
+      "location": {
+        "file": "SKILL.md",
+        "start_line": 77,
+        "end_line": null
+      },
+      "finding": "without asking",
+      "explanation": "Skill enables autonomous high-impact decisions without human-in-the-loop verification. Critical operations (destructive commands, financial transactions, data deletion) should require explicit user confirmation.",
+      "remediation": "Add human-in-the-loop confirmation for destructive, irreversible, or high-impact operations. Never auto-execute commands that modify files, send data, or alter system state.",
+      "code_snippet": "- Do not overwrite files without showing a diff.\n- Do not deploy a Worker to a different account than the widget was created in.\n- Do not call siteverify from the browser. Always: browser \u2192 user's Worker \u2192 siteverify.\n- Do not use `sudo` or install global packages without asking.\n\n### Hard scope boundary: DO NOT ask the user about\n",
+      "intent": null
+    },
+    {
+      "id": "EA2",
+      "category": "Excessive Agency",
+      "pattern": "Autonomous Decision Making",
+      "severity": "MEDIUM",
+      "confidence": 0.8,
+      "location": {
+        "file": "SKILL.md",
+        "start_line": 79,
+        "end_line": null
+      },
+      "finding": "DO NOT ask the user",
+      "explanation": "Skill enables autonomous high-impact decisions without human-in-the-loop verification. Critical operations (destructive commands, financial transactions, data deletion) should require explicit user confirmation.",
+      "remediation": "Add human-in-the-loop confirmation for destructive, irreversible, or high-impact operations. Never auto-execute commands that modify files, send data, or alter system state.",
+      "code_snippet": "- Do not call siteverify from the browser. Always: browser \u2192 user's Worker \u2192 siteverify.\n- Do not use `sudo` or install global packages without asking.\n\n### Hard scope boundary: DO NOT ask the user about\n\nSpin validates the Turnstile token via a managed Worker before the user's existing form handler runs. Everything else is out of scope:\n",
+      "intent": null
+    },
+    {
+      "id": "EA3",
+      "category": "Excessive Agency",
+      "pattern": "Scope Creep",
+      "severity": "LOW",
+      "confidence": 0.7,
+      "location": {
+        "file": "templates/worker/LICENSE",
+        "start_line": 16,
+        "end_line": null
+      },
+      "finding": "NOT LIMITED TO",
+      "explanation": "Skill's behavior or capabilities extend beyond its stated purpose. Scope creep allows an agent to perform actions unrelated to its documented functionality, increasing the attack surface.",
+      "remediation": "Limit the skill's scope to its documented purpose. Remove instructions that enable the agent to perform actions outside its stated functionality.",
+      "code_snippet": "copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,",
+      "intent": null
+    },
+    {
+      "id": "PE3",
+      "category": "Privilege Escalation",
+      "pattern": "Credential Access",
+      "severity": "HIGH",
+      "confidence": 0.6,
+      "location": {
+        "file": "templates/worker/test/deploy.test.ts",
+        "start_line": 33,
+        "end_line": null
+      },
+      "finding": ".env ",
+      "explanation": "Code accesses credential files (SSH keys, AWS credentials, etc.). This could indicate credential theft attempts.",
+      "remediation": "Remove references to credential paths. Use environment variables or secrets managers. For docs, use placeholder paths (e.g., /path/to/config). Never load .env or token files in production code paths.",
+      "code_snippet": "\t\t\t['wrangler', 'deploy', '--name', workerName, '--dry-run', '--outdir', '/tmp/spin-deploy-test'],\n\t\t\t{\n\t\t\t\tcwd: process.cwd(),\n\t\t\t\tenv: { ...process.env },\n\t\t\t\tencoding: 'utf-8',\n\t\t\t},\n\t\t);",
+      "intent": null
+    },
+    {
+      "id": "RA2",
+      "category": "Rogue Agent",
+      "pattern": "Session Persistence",
+      "severity": "MEDIUM",
+      "confidence": 0.6,
+      "location": {
+        "file": "README.md",
+        "start_line": 26,
+        "end_line": null
+      },
+      "finding": "mkdir -p .claude/skills/turnstile-spin && \\\n  curl -sSL https://developers.cloudflare.com/turnstile/spin.md \\\n  -o .claude/skills/turnstile-spin/SKILL.md\n\n# Or, install the whole skills bundle into a ",
+      "explanation": "Skill establishes unauthorized persistence across sessions via cron jobs, startup scripts, or state files. Session persistence allows an attacker to maintain access beyond the current interaction.",
+      "remediation": "Remove any persistence mechanisms (cron jobs, startup scripts, state files). Skills should not maintain state across sessions without explicit user consent.",
+      "code_snippet": "\n```sh\n# Claude Code\nmkdir -p .claude/skills/turnstile-spin && \\\n  curl -sSL https://developers.cloudflare.com/turnstile/spin.md \\\n  -o .claude/skills/turnstile-spin/SKILL.md\n",
+      "intent": null
+    },
+    {
+      "id": "RA2",
+      "category": "Rogue Agent",
+      "pattern": "Session Persistence",
+      "severity": "MEDIUM",
+      "confidence": 0.6,
+      "location": {
+        "file": "SKILL.md",
+        "start_line": 3,
+        "end_line": null
+      },
+      "finding": "create the widget via the Cloudflare API, deploy the managed siteverify Worker, write the frontend snippets, validate, and persist the skill. Load this when a user asks to add Turnstile, set up CAPTCH",
+      "explanation": "Skill establishes unauthorized persistence across sessions via cron jobs, startup scripts, or state files. Session persistence allows an attacker to maintain access beyond the current interaction.",
+      "remediation": "Remove any persistence mechanisms (cron jobs, startup scripts, state files). Skills should not maintain state across sessions without explicit user consent.",
+      "code_snippet": "---\nname: turnstile-spin\ndescription: Set up Cloudflare Turnstile end-to-end in a project \u2014 scan the codebase, create the widget via the Cloudflare API, deploy the managed siteverify Worker, write the frontend snippets, validate, and persist the skill. Load this when a user asks to add Turnstile, set up CAPTCHA, protect a form from bots, or fix a Turnstile integration. Mirrors developers.cloudflare.com/turnstile/spin.\nreferences:\n  - vanilla-html\n  - nextjs-app",
+      "intent": null
+    },
+    {
+      "id": "SC1",
+      "category": "Supply Chain",
+      "pattern": "Unpinned Dependencies",
+      "severity": "LOW",
+      "confidence": 0.4,
+      "location": {
+        "file": "templates/worker/package.json",
+        "start_line": 21,
+        "end_line": null
+      },
+      "finding": "\"@cloudflare/workers-types\": \"^4.20240502.0\"",
+      "explanation": "Dependencies lack version pinning, allowing potential malicious package updates. Consider pinning versions.",
+      "remediation": "Pin all dependency versions in requirements.txt or pyproject.toml. Use exact versions (==) or compatible ranges. Run pip-audit regularly.",
+      "code_snippet": "    \"lint\": \"tsc --noEmit\"\n  },\n  \"devDependencies\": {\n    \"@cloudflare/workers-types\": \"^4.20240502.0\",\n    \"typescript\": \"^5.4.0\",\n    \"vitest\": \"^4.1.8\",\n    \"wrangler\": \"^3.60.0\"",
+      "intent": null
+    },
+    {
+      "id": "SC1",
+      "category": "Supply Chain",
+      "pattern": "Unpinned Dependencies",
+      "severity": "LOW",
+      "confidence": 0.4,
+      "location": {
+        "file": "templates/worker/package.json",
+        "start_line": 22,
+        "end_line": null
+      },
+      "finding": "\"typescript\": \"^5.4.0\"",
+      "explanation": "Dependencies lack version pinning, allowing potential malicious package updates. Consider pinning versions.",
+      "remediation": "Pin all dependency versions in requirements.txt or pyproject.toml. Use exact versions (==) or compatible ranges. Run pip-audit regularly.",
+      "code_snippet": "  },\n  \"devDependencies\": {\n    \"@cloudflare/workers-types\": \"^4.20240502.0\",\n    \"typescript\": \"^5.4.0\",\n    \"vitest\": \"^4.1.8\",\n    \"wrangler\": \"^3.60.0\"\n  },",
+      "intent": null
+    },
+    {
+      "id": "SC1",
+      "category": "Supply Chain",
+      "pattern": "Unpinned Dependencies",
+      "severity": "LOW",
+      "confidence": 0.4,
+      "location": {
+        "file": "templates/worker/package.json",
+        "start_line": 23,
+        "end_line": null
+      },
+      "finding": "\"vitest\": \"^4.1.8\"",
+      "explanation": "Dependencies lack version pinning, allowing potential malicious package updates. Consider pinning versions.",
+      "remediation": "Pin all dependency versions in requirements.txt or pyproject.toml. Use exact versions (==) or compatible ranges. Run pip-audit regularly.",
+      "code_snippet": "  \"devDependencies\": {\n    \"@cloudflare/workers-types\": \"^4.20240502.0\",\n    \"typescript\": \"^5.4.0\",\n    \"vitest\": \"^4.1.8\",\n    \"wrangler\": \"^3.60.0\"\n  },\n  \"keywords\": [",
+      "intent": null
+    },
+    {
+      "id": "SC1",
+      "category": "Supply Chain",
+      "pattern": "Unpinned Dependencies",
+      "severity": "LOW",
+      "confidence": 0.4,
+      "location": {
+        "file": "templates/worker/package.json",
+        "start_line": 24,
+        "end_line": null
+      },
+      "finding": "\"wrangler\": \"^3.60.0\"",
+      "explanation": "Dependencies lack version pinning, allowing potential malicious package updates. Consider pinning versions.",
+      "remediation": "Pin all dependency versions in requirements.txt or pyproject.toml. Use exact versions (==) or compatible ranges. Run pip-audit regularly.",
+      "code_snippet": "    \"@cloudflare/workers-types\": \"^4.20240502.0\",\n    \"typescript\": \"^5.4.0\",\n    \"vitest\": \"^4.1.8\",\n    \"wrangler\": \"^3.60.0\"\n  },\n  \"keywords\": [\n    \"cloudflare\",",
+      "intent": null
+    },
+    {
+      "id": "SC4",
+      "category": "Supply Chain",
+      "pattern": "Known Vulnerable Dependency: wrangler==3.60.0 \u2014 1 advisory(ies): CVE-2026-0933 (Wrangler affected by OS Command Injection in `wrangler pages deploy`)",
+      "severity": "HIGH",
+      "confidence": 0.8,
+      "location": {
+        "file": "templates/worker/package.json",
+        "start_line": 24,
+        "end_line": null
+      },
+      "finding": "wrangler==3.60.0",
+      "explanation": "Dependency has known vulnerabilities (CVEs). Using packages with unpatched security flaws exposes the environment to known exploits.",
+      "remediation": "Update the dependency to a patched version that addresses the known CVE. Check OSV (osv.dev) or NVD for details on the vulnerability.",
+      "code_snippet": null,
+      "intent": null
+    },
+    {
+      "id": "TM2",
+      "category": "Tool Misuse",
+      "pattern": "Chaining Abuse",
+      "severity": "HIGH",
+      "confidence": 0.75,
+      "location": {
+        "file": "scripts/auth-probe.sh",
+        "start_line": 72,
+        "end_line": null
+      },
+      "finding": "; rm -",
+      "explanation": "Tool calls are chained to bypass individual safety checks or escalate capabilities beyond what any single tool call would allow.",
+      "remediation": "Limit tool chaining depth and validate the output of each tool before passing it to the next. Require explicit user approval for multi-step chains.",
+      "code_snippet": "http_code=$(curl -sS -w \"%{http_code}\" -o \"$tmp\" \\\n  \"https://api.cloudflare.com/client/v4/accounts/$account_id/challenges/widgets\" \\\n  -H \"Authorization: Bearer $token\" 2>/dev/null || echo \"000\")\nbody=$(cat \"$tmp\"); rm -f \"$tmp\"\nsuccess=$(echo \"$body\" | (jq -r '.success' 2>/dev/null || echo \"false\"))\n\nif [ \"$success\" != \"true\" ]; then",
+      "intent": null
+    },
+    {
+      "id": "TM2",
+      "category": "Tool Misuse",
+      "pattern": "Chaining Abuse",
+      "severity": "HIGH",
+      "confidence": 0.75,
+      "location": {
+        "file": "scripts/auth-probe.sh",
+        "start_line": 88,
+        "end_line": null
+      },
+      "finding": "; rm -",
+      "explanation": "Tool calls are chained to bypass individual safety checks or escalate capabilities beyond what any single tool call would allow.",
+      "remediation": "Limit tool chaining depth and validate the output of each tool before passing it to the next. Require explicit user approval for multi-step chains.",
+      "code_snippet": "workers_code=$(curl -sS -w \"%{http_code}\" -o \"$tmp\" \\\n  \"https://api.cloudflare.com/client/v4/accounts/$account_id/workers/scripts\" \\\n  -H \"Authorization: Bearer $token\" 2>/dev/null || echo \"000\")\nworkers_body=$(cat \"$tmp\"); rm -f \"$tmp\"\nworkers_success=$(echo \"$workers_body\" | (jq -r '.success' 2>/dev/null || echo \"false\"))\n\nif [ \"$workers_success\" != \"true\" ]; then",
+      "intent": null
+    },
+    {
+      "id": "TM2",
+      "category": "Tool Misuse",
+      "pattern": "Chaining Abuse",
+      "severity": "HIGH",
+      "confidence": 0.75,
+      "location": {
+        "file": "scripts/fetch-secret.sh",
+        "start_line": 42,
+        "end_line": null
+      },
+      "finding": "; rm -",
+      "explanation": "Tool calls are chained to bypass individual safety checks or escalate capabilities beyond what any single tool call would allow.",
+      "remediation": "Limit tool chaining depth and validate the output of each tool before passing it to the next. Require explicit user approval for multi-step chains.",
+      "code_snippet": "http_code=$(curl -sS -w \"%{http_code}\" -o \"$tmp\" \\\n  \"https://api.cloudflare.com/client/v4/accounts/$ACCOUNT_ID/challenges/widgets/$SITEKEY\" \\\n  -H \"Authorization: Bearer $CLOUDFLARE_API_TOKEN\" 2>/dev/null || echo \"000\")\nbody=$(cat \"$tmp\"); rm -f \"$tmp\"\n\nif [ \"$http_code\" = \"200\" ]; then\n  secret=$(echo \"$body\" | (jq -r '.result.secret' 2>/dev/null || python3 -c \"import sys,json; print(json.load(sys.stdin)['result']['secret'])\"))",
+      "intent": null
+    },
+    {
+      "id": "TM3",
+      "category": "Tool Misuse",
+      "pattern": "Unsafe Defaults",
+      "severity": "MEDIUM",
+      "confidence": 0.65,
+      "location": {
+        "file": "templates/worker/wrangler.toml",
+        "start_line": 19,
+        "end_line": null
+      },
+      "finding": "CORS allowed origin. Override per-environment.\n# In production, set this to your customer-facing domain (e.g. \"https://example.com\").\n# Leaving as \"*\" for development; production deploys MUST set this",
+      "explanation": "Tool defaults are unsafe or overly permissive (e.g. disabled TLS verification, no authentication, world-writable permissions). Unsafe defaults widen the attack surface.",
+      "remediation": "Override unsafe defaults with secure settings (verify=True, auth required, restrictive permissions). Review and harden all tool configurations.",
+      "code_snippet": "enabled = true\n\n[vars]\n# CORS allowed origin. Override per-environment.\n# In production, set this to your customer-facing domain (e.g. \"https://example.com\").\n# Leaving as \"*\" for development; production deploys MUST set this explicitly.\nALLOWED_ORIGIN = \"*\"",
+      "intent": null
+    }
+  ],
+  "metadata": {
+    "has_executable_scripts": true,
+    "skillspector_version": "2.1.4",
+    "llm_requested": false,
+    "llm_available": true
+  }
+}

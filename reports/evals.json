@@ -1,0 +1,91 @@
+{
+  "skill": {
+    "name": "evals",
+    "source": "/tmp/do-deal-relay/.agents/skills/evals",
+    "scanned_at": "2026-06-15T16:35:46.718005+00:00"
+  },
+  "risk_assessment": {
+    "score": 26,
+    "severity": "MEDIUM",
+    "recommendation": "CAUTION"
+  },
+  "components": [
+    {
+      "path": "README.md",
+      "type": "markdown",
+      "lines": 89,
+      "executable": false,
+      "size_bytes": 2936
+    },
+    {
+      "path": "SKILL.md",
+      "type": "markdown",
+      "lines": 45,
+      "executable": false,
+      "size_bytes": 1417
+    },
+    {
+      "path": "evals.json",
+      "type": "json",
+      "lines": 16,
+      "executable": false,
+      "size_bytes": 453
+    },
+    {
+      "path": "results.json",
+      "type": "json",
+      "lines": 948,
+      "executable": false,
+      "size_bytes": 25795
+    },
+    {
+      "path": "run_evals.py",
+      "type": "python",
+      "lines": 225,
+      "executable": true,
+      "size_bytes": 8201
+    }
+  ],
+  "issues": [
+    {
+      "id": "AST4",
+      "category": "Dangerous Code Execution",
+      "pattern": "subprocess module call",
+      "severity": "MEDIUM",
+      "confidence": 0.7,
+      "location": {
+        "file": "run_evals.py",
+        "start_line": 114,
+        "end_line": 119
+      },
+      "finding": "                result = subprocess.run(\n                    [sys.executable, str(test_script)],\n                    capture_output=True,\n                    text=True,\n                    timeout=60\n",
+      "explanation": "subprocess module calls execute external commands. Without careful input validation, this enables command injection.",
+      "remediation": "Use subprocess.run() with shell=False and an explicit argument list. Validate all inputs and avoid passing user-controlled data to commands.",
+      "code_snippet": "        test_script = skill_path / \"scripts\" / \"test.py\"\n        if test_script.exists():\n            try:\n                result = subprocess.run(\n                    [sys.executable, str(test_script)],\n                    capture_output=True,\n                    text=True,",
+      "intent": null
+    },
+    {
+      "id": "LP3",
+      "category": "MCP Least Privilege",
+      "pattern": null,
+      "severity": "MEDIUM",
+      "confidence": 0.7,
+      "location": {
+        "file": "SKILL.md",
+        "start_line": 1,
+        "end_line": null
+      },
+      "finding": null,
+      "explanation": "Without declared permissions the skill's intent is opaque and cannot be validated.",
+      "remediation": "Add a 'permissions' field to SKILL.md listing the capabilities this skill requires.",
+      "code_snippet": null,
+      "intent": null
+    }
+  ],
+  "metadata": {
+    "has_executable_scripts": true,
+    "skillspector_version": "2.1.4",
+    "llm_requested": false,
+    "llm_available": true
+  }
+}

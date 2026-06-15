@@ -1,0 +1,80 @@
+{
+  "skill": {
+    "name": "configure-codacy",
+    "source": "/tmp/do-deal-relay/.agents/skills/configure-codacy",
+    "scanned_at": "2026-06-15T16:35:12.160483+00:00"
+  },
+  "risk_assessment": {
+    "score": 75,
+    "severity": "HIGH",
+    "recommendation": "DO_NOT_INSTALL"
+  },
+  "components": [
+    {
+      "path": "SKILL.md",
+      "type": "markdown",
+      "lines": 667,
+      "executable": false,
+      "size_bytes": 40245
+    }
+  ],
+  "issues": [
+    {
+      "id": "TM1",
+      "category": "Tool Misuse",
+      "pattern": "Tool Parameter Abuse",
+      "severity": "HIGH",
+      "confidence": 0.85,
+      "location": {
+        "file": "SKILL.md",
+        "start_line": 114,
+        "end_line": null
+      },
+      "finding": "rm -f .codacy/",
+      "explanation": "Tool parameters are crafted to achieve unintended or unsafe behavior. Parameter abuse can bypass intended safety checks (e.g. shell=True, --force, dangerous glob patterns).",
+      "remediation": "Validate all tool parameters against an allowlist. Reject dangerous parameter values (shell=True, --force, -rf /) and use safe defaults.",
+      "code_snippet": "\n```bash\n# Delete any existing config first \u2014 init --remote refuses to overwrite\nrm -f .codacy/codacy.config.json\n\n# Fetch the current Cloud configuration\ncodacy-analysis init --remote <provider> <org> <repo>",
+      "intent": null
+    },
+    {
+      "id": "TM1",
+      "category": "Tool Misuse",
+      "pattern": "Tool Parameter Abuse",
+      "severity": "HIGH",
+      "confidence": 0.85,
+      "location": {
+        "file": "SKILL.md",
+        "start_line": 224,
+        "end_line": null
+      },
+      "finding": "rm -f .codacy/",
+      "explanation": "Tool parameters are crafted to achieve unintended or unsafe behavior. Parameter abuse can bypass intended safety checks (e.g. shell=True, --force, dangerous glob patterns).",
+      "remediation": "Validate all tool parameters against an allowlist. Reject dangerous parameter values (shell=True, --force, -rf /) and use safe defaults.",
+      "code_snippet": "First, remove the existing `.codacy/codacy.config.json` if any (the backup copy was already stored in Step 0):\n\n```bash\nrm -f .codacy/codacy.config.json\n```\n\nInitialize with the broadest useful pattern set, filtered by the discovered stack:",
+      "intent": null
+    },
+    {
+      "id": "TM1",
+      "category": "Tool Misuse",
+      "pattern": "Tool Parameter Abuse",
+      "severity": "HIGH",
+      "confidence": 0.85,
+      "location": {
+        "file": "SKILL.md",
+        "start_line": 608,
+        "end_line": null
+      },
+      "finding": "rm -rf .codacy/",
+      "explanation": "Tool parameters are crafted to achieve unintended or unsafe behavior. Parameter abuse can bypass intended safety checks (e.g. shell=True, --force, dangerous glob patterns).",
+      "remediation": "Validate all tool parameters against an allowlist. Reject dangerous parameter values (shell=True, --force, -rf /) and use safe defaults.",
+      "code_snippet": "Remove the temporary directory and all intermediate files:\n\n```bash\nrm -rf .codacy/tmp\n```\n\n## Per-tool tuning tips",
+      "intent": null
+    }
+  ],
+  "metadata": {
+    "has_executable_scripts": false,
+    "skillspector_version": "2.1.4",
+    "llm_requested": false,
+    "llm_available": true
+  }
+}

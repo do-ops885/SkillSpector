@@ -1,0 +1,67 @@
+{
+  "skill": {
+    "name": "codacy-analysis-cli",
+    "source": "/tmp/do-deal-relay/.agents/skills/codacy-analysis-cli",
+    "scanned_at": "2026-06-15T16:36:14.407951+00:00"
+  },
+  "risk_assessment": {
+    "score": 10,
+    "severity": "LOW",
+    "recommendation": "SAFE"
+  },
+  "components": [
+    {
+      "path": "SKILL.md",
+      "type": "markdown",
+      "lines": 480,
+      "executable": false,
+      "size_bytes": 18139
+    },
+    {
+      "path": "references/config-format.md",
+      "type": "markdown",
+      "lines": 119,
+      "executable": false,
+      "size_bytes": 3510
+    },
+    {
+      "path": "references/output-format.md",
+      "type": "markdown",
+      "lines": 143,
+      "executable": false,
+      "size_bytes": 5102
+    },
+    {
+      "path": "references/supported-tools.md",
+      "type": "markdown",
+      "lines": 62,
+      "executable": false,
+      "size_bytes": 2280
+    }
+  ],
+  "issues": [
+    {
+      "id": "E3",
+      "category": "Data Exfiltration",
+      "pattern": "File System Enumeration",
+      "severity": "MEDIUM",
+      "confidence": 0.6,
+      "location": {
+        "file": "SKILL.md",
+        "start_line": 451,
+        "end_line": null
+      },
+      "finding": "ls -la ~/",
+      "explanation": "Code scans file system directories looking for sensitive files. This could be reconnaissance for credential theft.",
+      "remediation": "Remove unnecessary filesystem scanning. If file access is needed, use explicit, scoped paths. Avoid reading ~/.ssh, ~/.aws, or credential directories.",
+      "code_snippet": "| Config outdated after adding new languages | Init was run before new files existed | Run `codacy-analysis update-config` |\n| `Config already exists` on init | `.codacy/codacy.config.json` already present | Use `update-config` instead, or delete `.codacy/codacy.config.json` first |\n| Remote init fails with auth error | Missing or invalid API token | Run `codacy-analysis login` or set `CODACY_API_TOKEN` |\n| Permission errors on `~/.codacy/` | Directory ownership mismatch | Check permissions: `ls -la ~/.codacy/` |\n| Inspect shows tool as `bundled` but it fails | Bundled library tool has dependency issue | Check `--log-level debug` output; may need `npm rebuild` |\n| Different results than Codacy Cloud | Different tool versions or pattern config | Use `init --remote` to sync config; check tool versions in inspect output |\n",
+      "intent": null
+    }
+  ],
+  "metadata": {
+    "has_executable_scripts": false,
+    "skillspector_version": "2.1.4",
+    "llm_requested": false,
+    "llm_available": true
+  }
+}

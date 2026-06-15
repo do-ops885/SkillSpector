@@ -1,0 +1,42 @@
+{
+  "skill": {
+    "name": "refcli",
+    "source": "/tmp/do-deal-relay/.agents/skills/refcli",
+    "scanned_at": "2026-06-15T16:34:43.835131+00:00"
+  },
+  "risk_assessment": {
+    "score": 0,
+    "severity": "LOW",
+    "recommendation": "SAFE"
+  },
+  "components": [
+    {
+      "path": "SKILL.md",
+      "type": "markdown",
+      "lines": 173,
+      "executable": false,
+      "size_bytes": 4476
+    },
+    {
+      "path": "evals/evals.json",
+      "type": "json",
+      "lines": 68,
+      "executable": false,
+      "size_bytes": 2546
+    },
+    {
+      "path": "references/resources.md",
+      "type": "markdown",
+      "lines": 21,
+      "executable": false,
+      "size_bytes": 849
+    }
+  ],
+  "issues": [],
+  "metadata": {
+    "has_executable_scripts": false,
+    "skillspector_version": "2.1.4",
+    "llm_requested": false,
+    "llm_available": true
+  }
+}

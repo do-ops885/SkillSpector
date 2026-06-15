@@ -1,0 +1,42 @@
+{
+  "skill": {
+    "name": "validation-gates",
+    "source": "/tmp/do-deal-relay/.agents/skills/validation-gates",
+    "scanned_at": "2026-06-15T16:34:08.221036+00:00"
+  },
+  "risk_assessment": {
+    "score": 0,
+    "severity": "LOW",
+    "recommendation": "SAFE"
+  },
+  "components": [
+    {
+      "path": "SKILL.md",
+      "type": "markdown",
+      "lines": 43,
+      "executable": false,
+      "size_bytes": 1862
+    },
+    {
+      "path": "evals/evals.json",
+      "type": "json",
+      "lines": 72,
+      "executable": false,
+      "size_bytes": 2663
+    },
+    {
+      "path": "templates/pipeline.ts",
+      "type": "typescript",
+      "lines": 189,
+      "executable": true,
+      "size_bytes": 4609
+    }
+  ],
+  "issues": [],
+  "metadata": {
+    "has_executable_scripts": true,
+    "skillspector_version": "2.1.4",
+    "llm_requested": false,
+    "llm_available": true
+  }
+}

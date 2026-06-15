@@ -1,0 +1,225 @@
+{
+  "skill": {
+    "name": "agent-browser",
+    "source": "/tmp/do-deal-relay/.agents/skills/agent-browser",
+    "scanned_at": "2026-06-15T16:35:15.876779+00:00"
+  },
+  "risk_assessment": {
+    "score": 100,
+    "severity": "CRITICAL",
+    "recommendation": "DO_NOT_INSTALL"
+  },
+  "components": [
+    {
+      "path": "SKILL.md",
+      "type": "markdown",
+      "lines": 774,
+      "executable": false,
+      "size_bytes": 30792
+    },
+    {
+      "path": "evals/evals.json",
+      "type": "json",
+      "lines": 25,
+      "executable": false,
+      "size_bytes": 871
+    },
+    {
+      "path": "references/authentication.md",
+      "type": "markdown",
+      "lines": 306,
+      "executable": false,
+      "size_bytes": 8435
+    },
+    {
+      "path": "references/commands.md",
+      "type": "markdown",
+      "lines": 296,
+      "executable": false,
+      "size_bytes": 11485
+    },
+    {
+      "path": "references/profiling.md",
+      "type": "markdown",
+      "lines": 120,
+      "executable": false,
+      "size_bytes": 3405
+    },
+    {
+      "path": "references/proxy-support.md",
+      "type": "markdown",
+      "lines": 194,
+      "executable": false,
+      "size_bytes": 4971
+    },
+    {
+      "path": "references/session-management.md",
+      "type": "markdown",
+      "lines": 194,
+      "executable": false,
+      "size_bytes": 4338
+    },
+    {
+      "path": "references/snapshot-refs.md",
+      "type": "markdown",
+      "lines": 222,
+      "executable": false,
+      "size_bytes": 5380
+    },
+    {
+      "path": "references/video-recording.md",
+      "type": "markdown",
+      "lines": 173,
+      "executable": false,
+      "size_bytes": 3569
+    },
+    {
+      "path": "templates/authenticated-session.sh",
+      "type": "shell",
+      "lines": 105,
+      "executable": true,
+      "size_bytes": 3678
+    },
+    {
+      "path": "templates/capture-workflow.sh",
+      "type": "shell",
+      "lines": 69,
+      "executable": true,
+      "size_bytes": 1832
+    },
+    {
+      "path": "templates/form-automation.sh",
+      "type": "shell",
+      "lines": 62,
+      "executable": true,
+      "size_bytes": 1838
+    }
+  ],
+  "issues": [
+    {
+      "id": "E4",
+      "category": "Data Exfiltration",
+      "pattern": "Context Leakage",
+      "severity": "HIGH",
+      "confidence": 0.85,
+      "location": {
+        "file": "SKILL.md",
+        "start_line": 407,
+        "end_line": null
+      },
+      "finding": "Record session\n",
+      "explanation": "Code or instructions that leak agent conversation context to external services, potentially exposing sensitive user interactions.",
+      "remediation": "Remove any code that sends prompts, responses, or session data externally. Preserve user privacy; never exfiltrate conversation content.",
+      "code_snippet": "agent-browser --headed open https://example.com\nagent-browser highlight @e1          # Highlight element\nagent-browser inspect                # Open Chrome DevTools for the active page\nagent-browser record start demo.webm # Record session\nagent-browser profiler start         # Start Chrome DevTools profiling\nagent-browser profiler stop trace.json # Stop and save profile (path optional)\n```",
+      "intent": null
+    },
+    {
+      "id": "RA2",
+      "category": "Rogue Agent",
+      "pattern": "Session Persistence",
+      "severity": "MEDIUM",
+      "confidence": 0.6,
+      "location": {
+        "file": "SKILL.md",
+        "start_line": 679,
+        "end_line": null
+      },
+      "finding": "Create `agent-browser.json` in the project root for persistent settings:\n\n```json\n{\n  \"headed\": true,\n  \"proxy\": \"http://localhost:8080\",\n  \"profile\": \"./browser-data\"\n}\n```\n\nPriority (lowest to highe",
+      "explanation": "Skill establishes unauthorized persistence across sessions via cron jobs, startup scripts, or state files. Session persistence allows an attacker to maintain access beyond the current interaction.",
+      "remediation": "Remove any persistence mechanisms (cron jobs, startup scripts, state files). Skills should not maintain state across sessions without explicit user consent.",
+      "code_snippet": "\n## Configuration File\n\nCreate `agent-browser.json` in the project root for persistent settings:\n\n```json\n{",
+      "intent": null
+    },
+    {
+      "id": "RA2",
+      "category": "Rogue Agent",
+      "pattern": "Session Persistence",
+      "severity": "MEDIUM",
+      "confidence": 0.55,
+      "location": {
+        "file": "references/commands.md",
+        "start_line": 246,
+        "end_line": null
+      },
+      "finding": "Restore saved state",
+      "explanation": "Skill establishes unauthorized persistence across sessions via cron jobs, startup scripts, or state files. Session persistence allows an attacker to maintain access beyond the current interaction.",
+      "remediation": "Remove any persistence mechanisms (cron jobs, startup scripts, state files). Skills should not maintain state across sessions without explicit user consent.",
+      "code_snippet": "\n```bash\nagent-browser state save auth.json    # Save cookies, storage, auth state\nagent-browser state load auth.json    # Restore saved state\n```\n\n## Global Options",
+      "intent": null
+    },
+    {
+      "id": "RA2",
+      "category": "Rogue Agent",
+      "pattern": "Session Persistence",
+      "severity": "MEDIUM",
+      "confidence": 0.55,
+      "location": {
+        "file": "references/session-management.md",
+        "start_line": 56,
+        "end_line": null
+      },
+      "finding": "Restore saved state",
+      "explanation": "Skill establishes unauthorized persistence across sessions via cron jobs, startup scripts, or state files. Session persistence allows an attacker to maintain access beyond the current interaction.",
+      "remediation": "Remove any persistence mechanisms (cron jobs, startup scripts, state files). Skills should not maintain state across sessions without explicit user consent.",
+      "code_snippet": "### Load Session State\n\n```bash\n# Restore saved state\nagent-browser state load /path/to/auth-state.json\n\n# Continue with authenticated session",
+      "intent": null
+    },
+    {
+      "id": "TM1",
+      "category": "Tool Misuse",
+      "pattern": "Tool Parameter Abuse",
+      "severity": "HIGH",
+      "confidence": 0.85,
+      "location": {
+        "file": "references/authentication.md",
+        "start_line": 297,
+        "end_line": null
+      },
+      "finding": "rm -f ./",
+      "explanation": "Tool parameters are crafted to achieve unintended or unsafe behavior. Parameter abuse can bypass intended safety checks (e.g. shell=True, --force, dangerous glob patterns).",
+      "remediation": "Validate all tool parameters against an allowlist. Reject dangerous parameter values (shell=True, --force, -rf /) and use safe defaults.",
+      "code_snippet": "\n   ```bash\n   agent-browser cookies clear\n   rm -f ./auth-state.json\n   ```\n\n4. **Use short-lived sessions for CI/CD**",
+      "intent": null
+    },
+    {
+      "id": "TM1",
+      "category": "Tool Misuse",
+      "pattern": "Tool Parameter Abuse",
+      "severity": "HIGH",
+      "confidence": 0.85,
+      "location": {
+        "file": "references/session-management.md",
+        "start_line": 186,
+        "end_line": null
+      },
+      "finding": "rm /tmp/",
+      "explanation": "Tool parameters are crafted to achieve unintended or unsafe behavior. Parameter abuse can bypass intended safety checks (e.g. shell=True, --force, dangerous glob patterns).",
+      "remediation": "Validate all tool parameters against an allowlist. Reject dangerous parameter values (shell=True, --force, -rf /) and use safe defaults.",
+      "code_snippet": "echo \"*.auth-state.json\" >> .gitignore\n\n# Delete after use\nrm /tmp/auth-state.json\n```\n\n### 4. Timeout Long Sessions",
+      "intent": null
+    },
+    {
+      "id": "YR1",
+      "category": "YARA Match",
+      "pattern": "YARA rule 'info_stealer': Information stealer patterns (credential harvesting, browser data theft) [malware]",
+      "severity": "HIGH",
+      "confidence": 0.75,
+      "location": {
+        "file": "references/authentication.md",
+        "start_line": 24,
+        "end_line": null
+      },
+      "finding": "cookies from a Chrome; cookies, execute JS, etc. Only use on trusted machines and close Chrome",
+      "explanation": "YARA rule matched a known malware signature (reverse shell, backdoor, ransomware, C2 framework, or info stealer).",
+      "remediation": "Remove the malware payload or compromised file entirely. Investigate how it entered the skill and audit all other artifacts for additional indicators of compromise.",
+      "code_snippet": "\n## Import Auth from Your Browser\n\nThe fastest way to authenticate is to reuse cookies from a Chrome session you are already logged into.\n\n**Step 1: Start Chrome with remote debugging**\n",
+      "intent": null
+    }
+  ],
+  "metadata": {
+    "has_executable_scripts": true,
+    "skillspector_version": "2.1.4",
+    "llm_requested": false,
+    "llm_available": true
+  }
+}

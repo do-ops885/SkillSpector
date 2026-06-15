@@ -1,0 +1,145 @@
+{
+  "skill": {
+    "name": "codeberg-api",
+    "source": "/tmp/do-deal-relay/.agents/skills/codeberg-api",
+    "scanned_at": "2026-06-15T16:34:12.030450+00:00"
+  },
+  "risk_assessment": {
+    "score": 100,
+    "severity": "CRITICAL",
+    "recommendation": "DO_NOT_INSTALL"
+  },
+  "components": [
+    {
+      "path": "SKILL.md",
+      "type": "markdown",
+      "lines": 224,
+      "executable": false,
+      "size_bytes": 6631
+    },
+    {
+      "path": "evals/evals.json",
+      "type": "json",
+      "lines": 72,
+      "executable": false,
+      "size_bytes": 2451
+    },
+    {
+      "path": "scripts/forgejo_api.py",
+      "type": "python",
+      "lines": 202,
+      "executable": true,
+      "size_bytes": 7658
+    }
+  ],
+  "issues": [
+    {
+      "id": "TT3",
+      "category": "Data Flow",
+      "pattern": "Tainted flow: 'url' from os.environ.get (line 66, credential/environment) \u2192 httpx.get (network output)",
+      "severity": "CRITICAL",
+      "confidence": 0.9,
+      "location": {
+        "file": "scripts/forgejo_api.py",
+        "start_line": 25,
+        "end_line": 25
+      },
+      "finding": "        r = httpx.get(url, headers=headers, follow_redirects=True, timeout=15)",
+      "explanation": "Credentials or environment variables flow to a network sink. This is a high-confidence indicator of credential exfiltration.",
+      "remediation": "Never send credentials or environment variables over the network. Use secure credential stores and avoid transmitting secrets in request bodies or URLs.",
+      "code_snippet": "    import httpx\n    def _get(url, token=None):\n        headers = {\"Authorization\": f\"token {token}\"} if token else {}\n        r = httpx.get(url, headers=headers, follow_redirects=True, timeout=15)\n        r.raise_for_status()\n        return r.json()\n    def _post(url, token, data):",
+      "intent": null
+    },
+    {
+      "id": "TT3",
+      "category": "Data Flow",
+      "pattern": "Tainted flow: 'url' from os.environ.get (line 66, credential/environment) \u2192 httpx.post (network output)",
+      "severity": "CRITICAL",
+      "confidence": 0.9,
+      "location": {
+        "file": "scripts/forgejo_api.py",
+        "start_line": 29,
+        "end_line": 30
+      },
+      "finding": "        r = httpx.post(url, headers={\"Authorization\": f\"token {token}\", \"Content-Type\": \"application/json\"},\n                       content=json.dumps(data), timeout=15)",
+      "explanation": "Credentials or environment variables flow to a network sink. This is a high-confidence indicator of credential exfiltration.",
+      "remediation": "Never send credentials or environment variables over the network. Use secure credential stores and avoid transmitting secrets in request bodies or URLs.",
+      "code_snippet": "        r.raise_for_status()\n        return r.json()\n    def _post(url, token, data):\n        r = httpx.post(url, headers={\"Authorization\": f\"token {token}\", \"Content-Type\": \"application/json\"},\n                       content=json.dumps(data), timeout=15)\n        r.raise_for_status()\n        return r.json()",
+      "intent": null
+    },
+    {
+      "id": "TT3",
+      "category": "Data Flow",
+      "pattern": "Tainted flow: 'url' from os.environ.get (line 66, credential/environment) \u2192 httpx.put (network output)",
+      "severity": "CRITICAL",
+      "confidence": 0.9,
+      "location": {
+        "file": "scripts/forgejo_api.py",
+        "start_line": 34,
+        "end_line": 35
+      },
+      "finding": "        r = httpx.put(url, headers={\"Authorization\": f\"token {token}\", \"Content-Type\": \"application/json\"},\n                      json=data, timeout=15)",
+      "explanation": "Credentials or environment variables flow to a network sink. This is a high-confidence indicator of credential exfiltration.",
+      "remediation": "Never send credentials or environment variables over the network. Use secure credential stores and avoid transmitting secrets in request bodies or URLs.",
+      "code_snippet": "        r.raise_for_status()\n        return r.json()\n    def _put(url, token, data):\n        r = httpx.put(url, headers={\"Authorization\": f\"token {token}\", \"Content-Type\": \"application/json\"},\n                      json=data, timeout=15)\n        r.raise_for_status()\n        return r.json()",
+      "intent": null
+    },
+    {
+      "id": "LP3",
+      "category": "MCP Least Privilege",
+      "pattern": null,
+      "severity": "MEDIUM",
+      "confidence": 0.7,
+      "location": {
+        "file": "SKILL.md",
+        "start_line": 1,
+        "end_line": null
+      },
+      "finding": null,
+      "explanation": "Without declared permissions the skill's intent is opaque and cannot be validated.",
+      "remediation": "Add a 'permissions' field to SKILL.md listing the capabilities this skill requires.",
+      "code_snippet": null,
+      "intent": null
+    },
+    {
+      "id": "E1",
+      "category": "Data Exfiltration",
+      "pattern": "External Transmission",
+      "severity": "MEDIUM",
+      "confidence": 0.6,
+      "location": {
+        "file": "SKILL.md",
+        "start_line": 126,
+        "end_line": null
+      },
+      "finding": "curl -H \"Authorization: token $FORGEJO_TOKEN\" \\\n  \"https://codeberg.org/api/v1/repos/{owner}/{repo}/contents/{filepath}?ref=main\"\n```\n\nResponse contains `content` (base64-encoded) and `sha` (needed fo",
+      "explanation": "Data is being sent to an external URL. This could be legitimate telemetry or data exfiltration. Manual review is recommended.",
+      "remediation": "Verify the destination URL is trusted and necessary. Remove or replace with documented APIs. Ensure no secrets, tokens, or PII are transmitted.",
+      "code_snippet": "### Read a file\n\n```bash\ncurl -H \"Authorization: token $FORGEJO_TOKEN\" \\\n  \"https://codeberg.org/api/v1/repos/{owner}/{repo}/contents/{filepath}?ref=main\"\n```\n",
+      "intent": null
+    },
+    {
+      "id": "E2",
+      "category": "Data Exfiltration",
+      "pattern": "Env Variable Harvesting",
+      "severity": "HIGH",
+      "confidence": 0.7,
+      "location": {
+        "file": "scripts/forgejo_api.py",
+        "start_line": 44,
+        "end_line": null
+      },
+      "finding": "os.environ.get(\"FORGEJO_TOKEN\", os.environ.get(\"CODEBERG_TOKEN",
+      "explanation": "Code accesses environment variables that may contain secrets (API keys, tokens). This is a common pattern for credential theft.",
+      "remediation": "Avoid reading sensitive env vars (API keys, tokens) unless strictly required. Use secrets managers or secure config. Never log or transmit credentials.",
+      "code_snippet": "\n# Support both Codeberg and self-hosted Forgejo\nBASE = os.environ.get(\"FORGEJO_BASE_URL\", \"https://codeberg.org/api/v1\")\nTOKEN = os.environ.get(\"FORGEJO_TOKEN\", os.environ.get(\"CODEBERG_TOKEN\", \"\"))\n\n\ndef repos(owner: str):",
+      "intent": null
+    }
+  ],
+  "metadata": {
+    "has_executable_scripts": true,
+    "skillspector_version": "2.1.4",
+    "llm_requested": false,
+    "llm_available": true
+  }
+}

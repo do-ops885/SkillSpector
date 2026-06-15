@@ -1,0 +1,228 @@
+{
+  "skill": {
+    "name": "self-learning-feedback",
+    "source": "/tmp/do-deal-relay/.agents/skills/self-learning-feedback",
+    "scanned_at": "2026-06-15T16:34:56.261225+00:00"
+  },
+  "risk_assessment": {
+    "score": 100,
+    "severity": "CRITICAL",
+    "recommendation": "DO_NOT_INSTALL"
+  },
+  "components": [
+    {
+      "path": "SKILL.md",
+      "type": "markdown",
+      "lines": 278,
+      "executable": false,
+      "size_bytes": 9932
+    },
+    {
+      "path": "evals/evals.json",
+      "type": "json",
+      "lines": 83,
+      "executable": false,
+      "size_bytes": 3784
+    },
+    {
+      "path": "modules/improve.md",
+      "type": "markdown",
+      "lines": 358,
+      "executable": false,
+      "size_bytes": 10882
+    },
+    {
+      "path": "modules/learn.md",
+      "type": "markdown",
+      "lines": 254,
+      "executable": false,
+      "size_bytes": 7107
+    },
+    {
+      "path": "modules/score.md",
+      "type": "markdown",
+      "lines": 228,
+      "executable": false,
+      "size_bytes": 5957
+    },
+    {
+      "path": "modules/verify.md",
+      "type": "markdown",
+      "lines": 222,
+      "executable": false,
+      "size_bytes": 5541
+    },
+    {
+      "path": "scripts/capture_lesson.sh",
+      "type": "shell",
+      "lines": 113,
+      "executable": true,
+      "size_bytes": 3009
+    },
+    {
+      "path": "scripts/score_noise_level.sh",
+      "type": "shell",
+      "lines": 138,
+      "executable": true,
+      "size_bytes": 3373
+    },
+    {
+      "path": "scripts/verify_version_consistency.sh",
+      "type": "shell",
+      "lines": 180,
+      "executable": true,
+      "size_bytes": 5982
+    },
+    {
+      "path": "tests/test_skill.sh",
+      "type": "shell",
+      "lines": 221,
+      "executable": true,
+      "size_bytes": 6677
+    }
+  ],
+  "issues": [
+    {
+      "id": "EA2",
+      "category": "Excessive Agency",
+      "pattern": "Autonomous Decision Making",
+      "severity": "MEDIUM",
+      "confidence": 0.75,
+      "location": {
+        "file": "SKILL.md",
+        "start_line": 223,
+        "end_line": null
+      },
+      "finding": "without verification",
+      "explanation": "Skill enables autonomous high-impact decisions without human-in-the-loop verification. Critical operations (destructive commands, financial transactions, data deletion) should require explicit user confirmation.",
+      "remediation": "Add human-in-the-loop confirmation for destructive, irreversible, or high-impact operations. Never auto-execute commands that modify files, send data, or alter system state.",
+      "code_snippet": "\n### DON'T:\n\n- \u2717 Trust \"Status: Complete\" without verification\n- \u2717 Ignore version mismatches as \"cosmetic\"\n- \u2717 Skip scoring for \"quick\" changes\n- \u2717 Let one persona dominate decisions",
+      "intent": null
+    },
+    {
+      "id": "EA2",
+      "category": "Excessive Agency",
+      "pattern": "Autonomous Decision Making",
+      "severity": "MEDIUM",
+      "confidence": 0.75,
+      "location": {
+        "file": "modules/learn.md",
+        "start_line": 42,
+        "end_line": null
+      },
+      "finding": "no verification",
+      "explanation": "Skill enables autonomous high-impact decisions without human-in-the-loop verification. Critical operations (destructive commands, financial transactions, data deletion) should require explicit user confirmation.",
+      "remediation": "Add human-in-the-loop confirmation for destructive, irreversible, or high-impact operations. Never auto-execute commands that modify files, send data, or alter system state.",
+      "code_snippet": "      \".agents/skills/agents-update/SKILL.md\"\n    ]\n  },\n  \"root_cause\": \"Template included hardcoded version; no verification step in skill creation workflow\",\n  \"fix_applied\": \"Updated all instances to match VERSION file\",\n  \"prevention\": {\n    \"immediate\": \"Run verify_version_consistency.sh after skill creation\",",
+      "intent": null
+    },
+    {
+      "id": "RA1",
+      "category": "Rogue Agent",
+      "pattern": "Self-Modification",
+      "severity": "HIGH",
+      "confidence": 0.85,
+      "location": {
+        "file": "SKILL.md",
+        "start_line": 106,
+        "end_line": null
+      },
+      "finding": "Update skill",
+      "explanation": "Skill modifies its own code, configuration, or behavior at runtime. Self-modification enables an agent to escalate privileges, disable safety constraints, or install persistent backdoors.",
+      "remediation": "Prevent the skill from modifying its own code, SKILL.md, or configuration files. Treat skill files as read-only at runtime.",
+      "code_snippet": "learn_method: capture_lesson\nerror_type: version_mismatch\nevidence: \"Skill claims v0.1.1 but VERSION is 0.1.1\"\nfix: \"Update skill frontmatter to match VERSION file\"\n```\n\n### 4. Improve Phase (SYNTHESIS)",
+      "intent": null
+    },
+    {
+      "id": "RA1",
+      "category": "Rogue Agent",
+      "pattern": "Self-Modification",
+      "severity": "HIGH",
+      "confidence": 0.85,
+      "location": {
+        "file": "SKILL.md",
+        "start_line": 235,
+        "end_line": null
+      },
+      "finding": "update\nskill",
+      "explanation": "Skill modifies its own code, configuration, or behavior at runtime. Self-modification enables an agent to escalate privileges, disable safety constraints, or install persistent backdoors.",
+      "remediation": "Prevent the skill from modifying its own code, SKILL.md, or configuration files. Treat skill files as read-only at runtime.",
+      "code_snippet": "\n```bash\n# Optimize AGENTS.md, then verify\nskill agents-update\nskill self-learning-feedback verify_file AGENTS.md\n```\n",
+      "intent": null
+    },
+    {
+      "id": "RA1",
+      "category": "Rogue Agent",
+      "pattern": "Self-Modification",
+      "severity": "HIGH",
+      "confidence": 0.85,
+      "location": {
+        "file": "SKILL.md",
+        "start_line": 243,
+        "end_line": null
+      },
+      "finding": "update\nskill",
+      "explanation": "Skill modifies its own code, configuration, or behavior at runtime. Self-modification enables an agent to escalate privileges, disable safety constraints, or install persistent backdoors.",
+      "remediation": "Prevent the skill from modifying its own code, SKILL.md, or configuration files. Treat skill files as read-only at runtime.",
+      "code_snippet": "\n```bash\n# Evaluate skill structure + content\nskill skill-evaluator --path agents-update\nskill self-learning-feedback score_output agents-update/SKILL.md\n```\n",
+      "intent": null
+    },
+    {
+      "id": "RA1",
+      "category": "Rogue Agent",
+      "pattern": "Self-Modification",
+      "severity": "HIGH",
+      "confidence": 0.85,
+      "location": {
+        "file": "modules/improve.md",
+        "start_line": 122,
+        "end_line": null
+      },
+      "finding": "Update skill",
+      "explanation": "Skill modifies its own code, configuration, or behavior at runtime. Self-modification enables an agent to escalate privileges, disable safety constraints, or install persistent backdoors.",
+      "remediation": "Prevent the skill from modifying its own code, SKILL.md, or configuration files. Treat skill files as read-only at runtime.",
+      "code_snippet": "      \"desired_state\": \"Template uses {{VERSION}} variable\",\n      \"effort_minutes\": 30,\n      \"impact\": \"Prevents ~15 version errors/month\",\n      \"fix_command\": \"Update skill scaffolding template\",\n      \"rationale\": \"SOCRATES: Lesson learned from LESSON-042\",\n      \"trade_offs\": \"30 min setup \u2192 saves 15*2 min = 30 min/month ongoing\"\n    }",
+      "intent": null
+    },
+    {
+      "id": "RA1",
+      "category": "Rogue Agent",
+      "pattern": "Self-Modification",
+      "severity": "HIGH",
+      "confidence": 0.85,
+      "location": {
+        "file": "modules/learn.md",
+        "start_line": 109,
+        "end_line": null
+      },
+      "finding": "update skill",
+      "explanation": "Skill modifies its own code, configuration, or behavior at runtime. Self-modification enables an agent to escalate privileges, disable safety constraints, or install persistent backdoors.",
+      "remediation": "Prevent the skill from modifying its own code, SKILL.md, or configuration files. Treat skill files as read-only at runtime.",
+      "code_snippet": "      \"score_30d_ago\": 72,\n      \"current_score\": 89,\n      \"improvement\": +17,\n      \"likely_cause\": \"Applied agents-update skill\"\n    }\n  ],\n  \"regressions\": [",
+      "intent": null
+    },
+    {
+      "id": "RA1",
+      "category": "Rogue Agent",
+      "pattern": "Self-Modification",
+      "severity": "HIGH",
+      "confidence": 0.85,
+      "location": {
+        "file": "modules/verify.md",
+        "start_line": 208,
+        "end_line": null
+      },
+      "finding": "update skill",
+      "explanation": "Skill modifies its own code, configuration, or behavior at runtime. Self-modification enables an agent to escalate privileges, disable safety constraints, or install persistent backdoors.",
+      "remediation": "Prevent the skill from modifying its own code, SKILL.md, or configuration files. Treat skill files as read-only at runtime.",
+      "code_snippet": "### Recommended Actions\n\n1. [HIGH] Update referral-system.md version\n2. [MEDIUM] Update agents-update skill version\n3. [LOW] Review typo warnings in AGENTS.md line 45\n```\n",
+      "intent": null
+    }
+  ],
+  "metadata": {
+    "has_executable_scripts": true,
+    "skillspector_version": "2.1.4",
+    "llm_requested": false,
+    "llm_available": true
+  }
+}
