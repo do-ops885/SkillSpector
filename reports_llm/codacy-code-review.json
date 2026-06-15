@@ -1,0 +1,46 @@
+{
+  "skill": {
+    "name": "codacy-code-review",
+    "source": "/tmp/scan_repo/.agents/skills/codacy-code-review",
+    "scanned_at": "2026-06-15T16:56:22.364073+00:00"
+  },
+  "risk_assessment": {
+    "score": 5,
+    "severity": "LOW",
+    "recommendation": "SAFE"
+  },
+  "components": [
+    {
+      "path": "SKILL.md",
+      "type": "markdown",
+      "lines": 209,
+      "executable": false,
+      "size_bytes": 9562
+    }
+  ],
+  "issues": [
+    {
+      "id": "EA3",
+      "category": "Excessive Agency",
+      "pattern": "Scope Creep",
+      "severity": "LOW",
+      "confidence": 0.7,
+      "location": {
+        "file": "SKILL.md",
+        "start_line": 152,
+        "end_line": null
+      },
+      "finding": "beyond the scope",
+      "explanation": "Skill's behavior or capabilities extend beyond its stated purpose. Scope creep allows an agent to perform actions unrelated to its documented functionality, increasing the attack surface.",
+      "remediation": "Limit the skill's scope to its documented purpose. Remove instructions that enable the agent to perform actions outside its stated functionality.",
+      "code_snippet": "\n### Step 6: Verify alignment\n\n**With the ticket/issue:** Check that the code changes address the stated requirements. Note any functionality described in the ticket that is not present in the changes. Note any changes that go beyond the scope of the ticket.\n\n**With the PR description:** Verify the description accurately reflects what was changed. Note discrepancies.\n",
+      "intent": null
+    }
+  ],
+  "metadata": {
+    "has_executable_scripts": false,
+    "skillspector_version": "2.1.4",
+    "llm_requested": true,
+    "llm_available": true
+  }
+}

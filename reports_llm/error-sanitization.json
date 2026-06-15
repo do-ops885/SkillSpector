@@ -1,0 +1,28 @@
+{
+  "skill": {
+    "name": "error-sanitization",
+    "source": "/tmp/scan_repo/.agents/skills/error-sanitization",
+    "scanned_at": "2026-06-15T16:55:42.232824+00:00"
+  },
+  "risk_assessment": {
+    "score": 0,
+    "severity": "LOW",
+    "recommendation": "SAFE"
+  },
+  "components": [
+    {
+      "path": "SKILL.md",
+      "type": "markdown",
+      "lines": 165,
+      "executable": false,
+      "size_bytes": 4952
+    }
+  ],
+  "issues": [],
+  "metadata": {
+    "has_executable_scripts": false,
+    "skillspector_version": "2.1.4",
+    "llm_requested": true,
+    "llm_available": true
+  }
+}

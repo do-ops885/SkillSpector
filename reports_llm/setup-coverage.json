@@ -1,0 +1,94 @@
+{
+  "skill": {
+    "name": "setup-coverage",
+    "source": "/tmp/scan_repo/.agents/skills/setup-coverage",
+    "scanned_at": "2026-06-15T16:56:47.225468+00:00"
+  },
+  "risk_assessment": {
+    "score": 75,
+    "severity": "HIGH",
+    "recommendation": "DO_NOT_INSTALL"
+  },
+  "components": [
+    {
+      "path": "SKILL.md",
+      "type": "markdown",
+      "lines": 394,
+      "executable": false,
+      "size_bytes": 11762
+    },
+    {
+      "path": "references/coverage-formats.md",
+      "type": "markdown",
+      "lines": 47,
+      "executable": false,
+      "size_bytes": 2045
+    },
+    {
+      "path": "references/coverage-upload.md",
+      "type": "markdown",
+      "lines": 129,
+      "executable": false,
+      "size_bytes": 3682
+    }
+  ],
+  "issues": [
+    {
+      "id": "SC2",
+      "category": "Supply Chain",
+      "pattern": "External Script Fetching",
+      "severity": "HIGH",
+      "confidence": 0.9,
+      "location": {
+        "file": "SKILL.md",
+        "start_line": 251,
+        "end_line": null
+      },
+      "finding": "curl -Ls https://coverage.codacy.com/get.sh) report -r <coverage-report-file>\n```\n\nFor **Go** coverage, add the parser flag:\n\n```bash\nbash <(curl -Ls https://coverage.codacy.com/get.sh) report \\\n  --f",
+      "explanation": "Remote code is downloaded and executed. This bypasses code review and could introduce malicious code.",
+      "remediation": "Avoid downloading and executing remote scripts. Use trusted packages from PyPI/npm. If remote fetch is required, verify checksums and use HTTPS.",
+      "code_snippet": "The standard upload command:\n\n```bash\nbash <(curl -Ls https://coverage.codacy.com/get.sh) report -r <coverage-report-file>\n```\n\nFor **Go** coverage, add the parser flag:",
+      "intent": null
+    },
+    {
+      "id": "SC2",
+      "category": "Supply Chain",
+      "pattern": "External Script Fetching",
+      "severity": "HIGH",
+      "confidence": 0.9,
+      "location": {
+        "file": "SKILL.md",
+        "start_line": 341,
+        "end_line": null
+      },
+      "finding": "wget -qO - https://coverage.codacy.com/get.sh | sh",
+      "explanation": "Remote code is downloaded and executed. This bypasses code review and could introduce malicious code.",
+      "remediation": "Avoid downloading and executing remote scripts. Use trusted packages from PyPI/npm. If remote fetch is required, verify checksums and use HTTPS.",
+      "code_snippet": "**Alpine Linux (no bash):**\n\n```bash\nwget -qO - https://coverage.codacy.com/get.sh | sh -s -- report -r <report-file>\n```\n\nSee [references/coverage-upload.md](references/coverage-upload.md) for advanced upload scenarios.",
+      "intent": null
+    },
+    {
+      "id": "SC2",
+      "category": "Supply Chain",
+      "pattern": "External Script Fetching",
+      "severity": "HIGH",
+      "confidence": 0.9,
+      "location": {
+        "file": "references/coverage-upload.md",
+        "start_line": 93,
+        "end_line": null
+      },
+      "finding": "wget -qO - https://coverage.codacy.com/get.sh | sh",
+      "explanation": "Remote code is downloaded and executed. This bypasses code review and could introduce malicious code.",
+      "remediation": "Avoid downloading and executing remote scripts. Use trusted packages from PyPI/npm. If remote fetch is required, verify checksums and use HTTPS.",
+      "code_snippet": "### Alpine Linux (no bash)\n\n```bash\nwget -qO - https://coverage.codacy.com/get.sh | sh -s -- report -r <report-file>\n```\n\n### Manual binary download (Linux amd64)",
+      "intent": null
+    }
+  ],
+  "metadata": {
+    "has_executable_scripts": false,
+    "skillspector_version": "2.1.4",
+    "llm_requested": false,
+    "llm_available": true
+  }
+}

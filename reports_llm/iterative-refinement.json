@@ -1,0 +1,70 @@
+{
+  "skill": {
+    "name": "iterative-refinement",
+    "source": "/tmp/scan_repo/.agents/skills/iterative-refinement",
+    "scanned_at": "2026-06-15T16:58:51.208209+00:00"
+  },
+  "risk_assessment": {
+    "score": 0,
+    "severity": "LOW",
+    "recommendation": "SAFE"
+  },
+  "components": [
+    {
+      "path": "README.md",
+      "type": "markdown",
+      "lines": 239,
+      "executable": false,
+      "size_bytes": 6533
+    },
+    {
+      "path": "SKILL.md",
+      "type": "markdown",
+      "lines": 265,
+      "executable": false,
+      "size_bytes": 7122
+    },
+    {
+      "path": "evals/evals.json",
+      "type": "json",
+      "lines": 72,
+      "executable": false,
+      "size_bytes": 2731
+    },
+    {
+      "path": "iterative-refinement.md",
+      "type": "markdown",
+      "lines": 249,
+      "executable": false,
+      "size_bytes": 6294
+    },
+    {
+      "path": "patterns.md",
+      "type": "markdown",
+      "lines": 377,
+      "executable": false,
+      "size_bytes": 8234
+    },
+    {
+      "path": "tools/rust.md",
+      "type": "markdown",
+      "lines": 429,
+      "executable": false,
+      "size_bytes": 7241
+    },
+    {
+      "path": "web-search-integration.md",
+      "type": "markdown",
+      "lines": 432,
+      "executable": false,
+      "size_bytes": 9984
+    }
+  ],
+  "issues": [],
+  "metadata": {
+    "has_executable_scripts": false,
+    "skillspector_version": "2.1.4",
+    "llm_requested": true,
+    "llm_available": true
+  }
+}

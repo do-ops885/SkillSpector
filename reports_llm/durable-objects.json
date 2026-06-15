@@ -1,0 +1,135 @@
+{
+  "skill": {
+    "name": "durable-objects",
+    "source": "/tmp/scan_repo/.agents/skills/durable-objects",
+    "scanned_at": "2026-06-15T16:58:42.930921+00:00"
+  },
+  "risk_assessment": {
+    "score": 65,
+    "severity": "HIGH",
+    "recommendation": "DO_NOT_INSTALL"
+  },
+  "components": [
+    {
+      "path": "SKILL.md",
+      "type": "markdown",
+      "lines": 206,
+      "executable": false,
+      "size_bytes": 8100
+    },
+    {
+      "path": "references/rules.md",
+      "type": "markdown",
+      "lines": 295,
+      "executable": false,
+      "size_bytes": 8483
+    },
+    {
+      "path": "references/testing.md",
+      "type": "markdown",
+      "lines": 264,
+      "executable": false,
+      "size_bytes": 6541
+    },
+    {
+      "path": "references/workers.md",
+      "type": "markdown",
+      "lines": 346,
+      "executable": false,
+      "size_bytes": 7543
+    }
+  ],
+  "issues": [
+    {
+      "id": "E1",
+      "category": "Data Exfiltration",
+      "pattern": "External Transmission",
+      "severity": "MEDIUM",
+      "confidence": 0.5,
+      "location": {
+        "file": "references/rules.md",
+        "start_line": 163,
+        "end_line": null
+      },
+      "finding": "https://api.example.com/",
+      "explanation": "Data is being sent to an external URL. This could be legitimate telemetry or data exfiltration. Manual review is recommended.",
+      "remediation": "Verify the destination URL is trusted and necessary. Remove or replace with documented APIs. Ensure no secrets, tokens, or PII are transmitted.",
+      "code_snippet": "async processItem(id: string) {\n  const item = await this.ctx.storage.get<Item>(`item:${id}`);\n  if (item?.status === \"pending\") {\n    await fetch(\"https://api.example.com/process\"); // Other requests can run here!\n    await this.ctx.storage.put(`item:${id}`, { status: \"completed\" });\n  }\n}",
+      "intent": null
+    },
+    {
+      "id": "E1",
+      "category": "Data Exfiltration",
+      "pattern": "External Transmission",
+      "severity": "MEDIUM",
+      "confidence": 0.6,
+      "location": {
+        "file": "references/testing.md",
+        "start_line": 87,
+        "end_line": null
+      },
+      "finding": "fetch(\"http://example.com?id=test\", {\n      method: \"POST\"",
+      "explanation": "Data is being sent to an external URL. This could be legitimate telemetry or data exfiltration. Manual review is recommended.",
+      "remediation": "Verify the destination URL is trusted and necessary. Remove or replace with documented APIs. Ensure no secrets, tokens, or PII are transmitted.",
+      "code_snippet": "\ndescribe(\"Worker HTTP\", () => {\n  it(\"should increment via POST\", async () => {\n    const res = await SELF.fetch(\"http://example.com?id=test\", {\n      method: \"POST\",\n    });\n    ",
+      "intent": null
+    },
+    {
+      "id": "E1",
+      "category": "Data Exfiltration",
+      "pattern": "External Transmission",
+      "severity": "MEDIUM",
+      "confidence": 0.6,
+      "location": {
+        "file": "references/testing.md",
+        "start_line": 97,
+        "end_line": null
+      },
+      "finding": "fetch(\"http://example.com?id=get-test\", { method: \"POST\"",
+      "explanation": "Data is being sent to an external URL. This could be legitimate telemetry or data exfiltration. Manual review is recommended.",
+      "remediation": "Verify the destination URL is trusted and necessary. Remove or replace with documented APIs. Ensure no secrets, tokens, or PII are transmitted.",
+      "code_snippet": "  });\n\n  it(\"should get count via GET\", async () => {\n    await SELF.fetch(\"http://example.com?id=get-test\", { method: \"POST\" });\n    await SELF.fetch(\"http://example.com?id=get-test\", { method: \"POST\" });\n    \n    const res = await SELF.fetch(\"http://example.com?id=get-test\");",
+      "intent": null
+    },
+    {
+      "id": "E1",
+      "category": "Data Exfiltration",
+      "pattern": "External Transmission",
+      "severity": "MEDIUM",
+      "confidence": 0.6,
+      "location": {
+        "file": "references/testing.md",
+        "start_line": 98,
+        "end_line": null
+      },
+      "finding": "fetch(\"http://example.com?id=get-test\", { method: \"POST\"",
+      "explanation": "Data is being sent to an external URL. This could be legitimate telemetry or data exfiltration. Manual review is recommended.",
+      "remediation": "Verify the destination URL is trusted and necessary. Remove or replace with documented APIs. Ensure no secrets, tokens, or PII are transmitted.",
+      "code_snippet": "\n  it(\"should get count via GET\", async () => {\n    await SELF.fetch(\"http://example.com?id=get-test\", { method: \"POST\" });\n    await SELF.fetch(\"http://example.com?id=get-test\", { method: \"POST\" });\n    \n    const res = await SELF.fetch(\"http://example.com?id=get-test\");\n    const data = await res.json<{ count: number }>();",
+      "intent": null
+    },
+    {
+      "id": "MP3",
+      "category": "Memory Poisoning",
+      "pattern": "Memory Manipulation",
+      "severity": "HIGH",
+      "confidence": 0.9,
+      "location": {
+        "file": "SKILL.md",
+        "start_line": 194,
+        "end_line": null
+      },
+      "finding": "corrupt state",
+      "explanation": "Skill manipulates agent memory, state, or stored context. Memory corruption can alter personality, override safety rules, or cause unpredictable behavior.",
+      "remediation": "Protect agent memory and state from modification by untrusted content. Use read-only memory for critical instructions and validate all state changes.",
+      "code_snippet": "|---------|-----------------|\n| `implements DurableObject` should work like any other interface. | The class **must** `extends DurableObject` to inherit `this.ctx`, `this.env`, and the constructor that binds them. `implements` is a common migration mistake from pre-2024 DO types. |\n| `this.env` and `this.ctx` look like class fields \u2014 calling `env.X` from inside a method should be equivalent. | Inside `extends DurableObject`, the inherited fields are `this.env` / `this.ctx`. Using the global `env` works in `fetch` handlers but not in DO methods. |\n| `blockConcurrencyWhile()` is opt-in for performance. | Without it, the first request can race with `constructor` work and corrupt state. The default is \"skip\"; for any DO that initializes state in the constructor, you must wrap. |\n| SQLite inside a DO is the same as Cloudflare D1. | D1 is the HTTP-fronted product; the DO SQLite (`this.ctx.storage.sql`) is per-DO with synchronous semantics, no HTTP overhead, and `transactional()` blocks. Using D1 APIs inside a DO is a layered mistake. |\n| `getByName` and `idFromName` are equivalent shortcuts. | `getByName` is the one-call helper that resolves the ID *and* the stub. `idFromName` + `get` is the two-call form. Both work, but mixing them obscures intent. |\n| Storing non-serializable values (Date, Map, Set) in `this.ctx.storage` should be fine. | The storage layer is JSON-serialized. `Date` becomes a string, `Map`/`Set` become `{}`/`[]`. Use `JSON.parse(JSON.stringify(...))` defensively or store ISO strings. |",
+      "intent": null
+    }
+  ],
+  "metadata": {
+    "has_executable_scripts": false,
+    "skillspector_version": "2.1.4",
+    "llm_requested": false,
+    "llm_available": true
+  }
+}

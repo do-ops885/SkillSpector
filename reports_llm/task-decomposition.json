@@ -1,0 +1,84 @@
+{
+  "skill": {
+    "name": "task-decomposition",
+    "source": "/tmp/scan_repo/.agents/skills/task-decomposition",
+    "scanned_at": "2026-06-15T16:54:23.527798+00:00"
+  },
+  "risk_assessment": {
+    "score": 45,
+    "severity": "MEDIUM",
+    "recommendation": "CAUTION"
+  },
+  "components": [
+    {
+      "path": "SKILL.md",
+      "type": "markdown",
+      "lines": 161,
+      "executable": false,
+      "size_bytes": 4242
+    },
+    {
+      "path": "evals/evals.json",
+      "type": "json",
+      "lines": 24,
+      "executable": false,
+      "size_bytes": 688
+    },
+    {
+      "path": "reference/guide.md",
+      "type": "markdown",
+      "lines": 669,
+      "executable": false,
+      "size_bytes": 15616
+    },
+    {
+      "path": "scripts/test.py",
+      "type": "python",
+      "lines": 32,
+      "executable": true,
+      "size_bytes": 721
+    }
+  ],
+  "issues": [
+    {
+      "id": "LP3",
+      "category": "MCP Least Privilege",
+      "pattern": null,
+      "severity": "MEDIUM",
+      "confidence": 0.7,
+      "location": {
+        "file": "SKILL.md",
+        "start_line": 1,
+        "end_line": null
+      },
+      "finding": null,
+      "explanation": "Without declared permissions the skill's intent is opaque and cannot be validated.",
+      "remediation": "Add a 'permissions' field to SKILL.md listing the capabilities this skill requires.",
+      "code_snippet": null,
+      "intent": null
+    },
+    {
+      "id": "MP3",
+      "category": "Memory Poisoning",
+      "pattern": "Memory Manipulation",
+      "severity": "HIGH",
+      "confidence": 0.8,
+      "location": {
+        "file": "reference/guide.md",
+        "start_line": 28,
+        "end_line": null
+      },
+      "finding": "Clear state",
+      "explanation": "Skill manipulates agent memory, state, or stored context. Memory corruption can alter personality, override safety rules, or cause unpredictable behavior.",
+      "remediation": "Protect agent memory and state from modification by untrusted content. Use read-only memory for critical instructions and validate all state changes.",
+      "code_snippet": "**User Request**: [Original request]\n\n**Primary Objective**:\n[Clear statement of main goal]\n\n**Implicit Requirements**:\n- Quality: [Standards expected]",
+      "intent": null
+    }
+  ],
+  "metadata": {
+    "has_executable_scripts": true,
+    "skillspector_version": "2.1.4",
+    "llm_requested": true,
+    "llm_available": true
+  }
+}

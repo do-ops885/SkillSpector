@@ -1,0 +1,42 @@
+{
+  "skill": {
+    "name": "guard-rails",
+    "source": "/tmp/scan_repo/.agents/skills/guard-rails",
+    "scanned_at": "2026-06-15T16:56:19.039585+00:00"
+  },
+  "risk_assessment": {
+    "score": 0,
+    "severity": "LOW",
+    "recommendation": "SAFE"
+  },
+  "components": [
+    {
+      "path": "SKILL.md",
+      "type": "markdown",
+      "lines": 192,
+      "executable": false,
+      "size_bytes": 4900
+    },
+    {
+      "path": "evals/evals.json",
+      "type": "json",
+      "lines": 72,
+      "executable": false,
+      "size_bytes": 2833
+    },
+    {
+      "path": "templates/policy.ts",
+      "type": "typescript",
+      "lines": 213,
+      "executable": true,
+      "size_bytes": 5269
+    }
+  ],
+  "issues": [],
+  "metadata": {
+    "has_executable_scripts": true,
+    "skillspector_version": "2.1.4",
+    "llm_requested": true,
+    "llm_available": true
+  }
+}

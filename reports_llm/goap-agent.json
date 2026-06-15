@@ -1,0 +1,98 @@
+{
+  "skill": {
+    "name": "goap-agent",
+    "source": "/tmp/scan_repo/.agents/skills/goap-agent",
+    "scanned_at": "2026-06-15T16:59:05.818678+00:00"
+  },
+  "risk_assessment": {
+    "score": 26,
+    "severity": "MEDIUM",
+    "recommendation": "CAUTION"
+  },
+  "components": [
+    {
+      "path": "SKILL.md",
+      "type": "markdown",
+      "lines": 160,
+      "executable": false,
+      "size_bytes": 4755
+    },
+    {
+      "path": "evals/evals.json",
+      "type": "json",
+      "lines": 16,
+      "executable": false,
+      "size_bytes": 461
+    },
+    {
+      "path": "execution-strategies.md",
+      "type": "markdown",
+      "lines": 248,
+      "executable": false,
+      "size_bytes": 6657
+    },
+    {
+      "path": "reference/execution-strategies.md",
+      "type": "markdown",
+      "lines": 272,
+      "executable": false,
+      "size_bytes": 6939
+    },
+    {
+      "path": "reference/guide.md",
+      "type": "markdown",
+      "lines": 587,
+      "executable": false,
+      "size_bytes": 17270
+    },
+    {
+      "path": "scripts/test.py",
+      "type": "python",
+      "lines": 32,
+      "executable": true,
+      "size_bytes": 705
+    }
+  ],
+  "issues": [
+    {
+      "id": "LP3",
+      "category": "MCP Least Privilege",
+      "pattern": null,
+      "severity": "MEDIUM",
+      "confidence": 0.7,
+      "location": {
+        "file": "SKILL.md",
+        "start_line": 1,
+        "end_line": null
+      },
+      "finding": null,
+      "explanation": "Without declared permissions the skill's intent is opaque and cannot be validated.",
+      "remediation": "Add a 'permissions' field to SKILL.md listing the capabilities this skill requires.",
+      "code_snippet": null,
+      "intent": null
+    },
+    {
+      "id": "EA2",
+      "category": "Excessive Agency",
+      "pattern": "Autonomous Decision Making",
+      "severity": "MEDIUM",
+      "confidence": 0.75,
+      "location": {
+        "file": "SKILL.md",
+        "start_line": 130,
+        "end_line": null
+      },
+      "finding": "without verification",
+      "explanation": "Skill enables autonomous high-impact decisions without human-in-the-loop verification. Critical operations (destructive commands, financial transactions, data deletion) should require explicit user confirmation.",
+      "remediation": "Add human-in-the-loop confirmation for destructive, irreversible, or high-impact operations. Never auto-execute commands that modify files, send data, or alter system state.",
+      "code_snippet": "### DON'T:\n\u2717 Create monolithic tasks\n\u2717 Skip quality gates\n\u2717 Assume independence without verification\n\n## Integration\n",
+      "intent": null
+    }
+  ],
+  "metadata": {
+    "has_executable_scripts": true,
+    "skillspector_version": "2.1.4",
+    "llm_requested": true,
+    "llm_available": true
+  }
+}
