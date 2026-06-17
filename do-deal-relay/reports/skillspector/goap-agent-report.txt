@@ -1,0 +1,45 @@
+
+╭──────────────────────────────────────────────────────────────────────────────╮
+│ SkillSpector Security Report                                                 │
+╰─────────────────────────────────── v2.1.4 ───────────────────────────────────╯
+
+Skill: goap-agent
+Source: /app/do-deal-relay-tmp/.agents/skills/goap-agent
+Scanned: 2026-06-15 16:58:33 UTC
+
+
+     Risk Assessment
+ Score           26/100
+ Severity        MEDIUM
+ Recommendation  CAUTION
+
+
+                           Components (6)
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━┳━━━━━━━━━━━━┓
+┃ File                              ┃ Type     ┃ Lines ┃ Executable ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━╇━━━━━━━━━━━━┩
+│ SKILL.md                          │ markdown │   160 │ No         │
+│ evals/evals.json                  │ json     │    16 │ No         │
+│ execution-strategies.md           │ markdown │   248 │ No         │
+│ reference/execution-strategies.md │ markdown │   272 │ No         │
+│ reference/guide.md                │ markdown │   587 │ No         │
+│ scripts/test.py                   │ python   │    32 │ Yes        │
+└───────────────────────────────────┴──────────┴───────┴────────────┘
+
+
+Issues (2)
+
+  MEDIUM: LP3 - Skill has no declared permissions but code capabilities were...
+    Location: SKILL.md:1
+    Confidence: 70%
+    Remediation: Add a 'permissions' field to SKILL.md listing the capabilities
+this skill requires....
+
+  MEDIUM: EA2 - Autonomous Decision Making...
+    Location: SKILL.md:130
+    Confidence: 75%
+    Remediation: Add human-in-the-loop confirmation for destructive,
+irreversible, or high-impact operations. Never auto-execute commands that modify
+files, send data,...
+
+Executable scripts: Yes
