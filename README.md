@@ -13,7 +13,7 @@ SkillSpector helps you answer: **"Is this skill safe to install?"**
 
 ## Documentation
 
-- **[Development guide](docs/DEVELOPMENT.md)** — Architecture, package layout, and how to extend the analyzer pipeline.
+
 
 ## Features
 
