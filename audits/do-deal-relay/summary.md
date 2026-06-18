@@ -38,10 +38,9 @@ A security audit of the AI agent skills in this repository was performed using S
 ## Integration
 
 SkillSpector has been integrated into the repository:
-1. **Skill Definition**: Added to `.agents/skills/skillspector`.
-2. **Jules Integration**: Linked to `.jules/skills/skillspector`.
-3. **Reports**: Detailed logs available in `reports/skillspector/`.
-4. **Sentinel**: Findings recorded in `.jules/sentinel.md`.
+1. **Skill Definition**: Located at `.agents/skills/skillspector`.
+2. **Reports**: Detailed analysis logs are available in `audits/do-deal-relay/`.
+3. **Audit History**: Findings recorded in `audits/do-deal-relay/.jules/sentinel.md`.
 
 ## Remediation Plan
 
